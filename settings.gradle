@@ -1,0 +1,4 @@
+rootProject.name='MVVM_WanAndroid'
+include ':app'
+include ':module_aac'
+include ':module_base'

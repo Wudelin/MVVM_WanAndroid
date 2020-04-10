@@ -1,5 +1,6 @@
 package com.wdl.wanandroid
 
+import android.graphics.Color
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
 import android.graphics.Paint
@@ -11,6 +12,8 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.wdl.wanandroid.utils.ActivityStackManager
+import com.wdl.wanandroid.utils.BarUtils
+import com.wdl.wanandroid.widget.TitleBar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 
@@ -23,6 +26,13 @@ import kotlinx.coroutines.MainScope
 abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity(),
     CoroutineScope by MainScope() {
 
+    protected val mBack = object : TitleBar.OnBackListener {
+        override fun onBack(v: View) {
+            finish()
+        }
+
+    }
+
     protected val mBinding: VB by lazy {
         DataBindingUtil.setContentView(this, getLayoutId()) as VB
     }
@@ -30,16 +40,35 @@ abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity(),
     abstract fun getLayoutId(): Int
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        transparentStatusBar(true)
         super.onCreate(savedInstanceState)
 
         // 置灰
         // 参考自：https://juejin.im/post/5e88937951882573c66cf99d
         if (isRequiredGray()) putGray()
-
         ActivityStackManager.add(this)
         mBinding.lifecycleOwner = this
-
         initView(savedInstanceState)
+    }
+
+    /** 透明状态栏 */
+    open fun transparentStatusBar(lightStatusBar: Boolean) {
+//        var ui = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
+//                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+//                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            ui = if (lightStatusBar) {
+//                ui or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+//            } else {
+//                ui and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
+//            }
+//        }
+//        window.decorView.systemUiVisibility = ui
+//        window.navigationBarColor = Color.TRANSPARENT
+//        window.statusBarColor = Color.TRANSPARENT
+//        supportActionBar?.hide()
+        BarUtils.setStatusBarColor(this, Color.TRANSPARENT)
+        BarUtils.setStatusBarLightMode(this, true)
     }
 
     protected fun isRequiredGray(): Boolean = false
@@ -64,4 +93,5 @@ abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity(),
      * 获取ViewModel
      */
     fun <VM : ViewModel> getViewModel(clazz: Class<VM>): VM = ViewModelProvider(this).get(clazz)
+
 }

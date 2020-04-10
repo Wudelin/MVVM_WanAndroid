@@ -1,4 +1,4 @@
-ext{
+ext {
     compileSdkVersion = 29
     buildToolsVersion = '29.0.3'
     minSdkVersion = 21
@@ -27,6 +27,8 @@ ext{
 
     lottieVersion = '3.4.0'
 
+    mmkvVersion = '1.1.0'
+    legacyVersion = '1.0.0'
 
 
 }

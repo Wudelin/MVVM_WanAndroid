@@ -20,7 +20,14 @@
         android:id="@+id/mine_dest"
         android:name="com.wdl.wanandroid.ui.main.MineFragment"
         android:label="fragment_mine"
-        tools:layout="@layout/fragment_mine" />
-
+        tools:layout="@layout/fragment_mine">
+        <action
+            android:id="@+id/action_mine_dest_to_loginActivity"
+            app:destination="@id/login_activity" />
+    </fragment>
+    <activity
+        android:id="@+id/login_activity"
+        android:name="com.wdl.wanandroid.ui.login.LoginActivity"
+        android:label="LoginActivity" />
 
 </navigation>

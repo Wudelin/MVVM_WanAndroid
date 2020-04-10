@@ -57,6 +57,9 @@ dependencies {
     implementation project(":module_aac")
     implementation project(":module_base")
 
+    implementation "com.tencent:mmkv:$rootProject.ext.mmkvVersion"
+
+    implementation "androidx.legacy:legacy-support-v4:$rootProject.ext.legacyVersion"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'

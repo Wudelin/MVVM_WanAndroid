@@ -1,13 +1,18 @@
 package com.wdl.wanandroid.ui.login
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import com.wdl.wanandroid.BaseActivity
 import com.wdl.wanandroid.R
+import com.wdl.wanandroid.base.BaseActivity
 import com.wdl.wanandroid.databinding.ActivityLoginBinding
+import com.wdl.wanandroid.repository.LoginRepository
+import com.wdl.wanandroid.viewmodel.LoginViewModel
+import com.wdl.wanandroid.vmfactory.LoginModelFactory
 import com.wdl.wanandroid.widget.TitleBar
+import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
@@ -27,6 +32,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
             mBackListener = mBack
             mRightListener = object : TitleBar.OnRightListener {
                 override fun onClick(v: View) {
+                    // TODO To Register
                 }
             }
         }
@@ -36,12 +42,19 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
         mBinding.model = loginViewModel
 
-//        loginViewModel.mBtnStatus.observe(this, Observer {
-//
-//        })
     }
 
+    /**
+     * 登录
+     */
     fun login(view: View) {
-        Toast.makeText(this, "Login", Toast.LENGTH_SHORT).show()
+        val username = et_name.text.toString()
+        val password = et_pwd.text.toString()
+        if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) return
+        loginViewModel.login(username, password, {
+            finish()
+        }, {
+            Toast.makeText(this, it!!, Toast.LENGTH_SHORT).show()
+        })
     }
 }

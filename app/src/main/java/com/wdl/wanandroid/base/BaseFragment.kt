@@ -1,4 +1,4 @@
-package com.wdl.wanandroid
+package com.wdl.wanandroid.base
 
 import android.os.Bundle
 import android.view.LayoutInflater

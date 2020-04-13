@@ -2,8 +2,8 @@ package com.wdl.wanandroid.ui
 
 import android.animation.Animator
 import android.os.Bundle
-import com.wdl.wanandroid.BaseActivity
 import com.wdl.wanandroid.R
+import com.wdl.wanandroid.base.BaseActivity
 import com.wdl.wanandroid.databinding.ActivitySplashBinding
 import kotlinx.android.synthetic.main.activity_splash.*
 

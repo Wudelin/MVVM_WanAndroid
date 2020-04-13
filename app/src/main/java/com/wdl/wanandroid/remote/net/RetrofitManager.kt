@@ -1,5 +1,6 @@
 package com.wdl.wanandroid.remote.net
 
+import com.wdl.wanandroid.base.BASE_URL
 import com.wdl.wanandroid.utils.WLogger
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -11,7 +12,6 @@ import java.util.concurrent.TimeUnit
  * Create by: wdl at 2020/4/9 17:44
  * 网络请求管理类
  */
-const val BASE_URL = "https://www.wanandroid.com"
 
 object RetrofitManager {
     private val TIME_UNIT = TimeUnit.MILLISECONDS

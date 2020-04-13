@@ -6,11 +6,9 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.wdl.wanandroid.BaseActivity
 import com.wdl.wanandroid.R
+import com.wdl.wanandroid.base.BaseActivity
 import com.wdl.wanandroid.databinding.ActivityMainBinding
-import com.wdl.wanandroid.utils.MMKVUtil
-import com.wdl.wanandroid.utils.WLogger
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {

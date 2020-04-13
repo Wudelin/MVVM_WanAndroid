@@ -18,4 +18,12 @@ interface WanApi {
         @Field("username") user: String,
         @Field("password") pwd: String
     ): Response<LoginRes>
+
+    @POST("/user/register")
+    @FormUrlEncoded
+    suspend fun register(
+        @Field("username") user: String,
+        @Field("password") pwd: String,
+        @Field("repassword") rePwd: String
+    ): Response<LoginRes>
 }

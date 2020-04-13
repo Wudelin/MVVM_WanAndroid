@@ -10,13 +10,13 @@ import kotlinx.coroutines.withContext
 /**
  * Create by: wdl at 2020/4/10 17:15
  */
-class LoginRepository {
+class RegisterRepository {
 
-    /**
-     * login
-     */
-    suspend fun login(user: String, pwd: String)
-            = withContext(Dispatchers.IO) {
-        RetrofitManager.wanService.login(user, pwd)
+    suspend fun register(
+        username: String,
+        password: String,
+        rePassword: String
+    ) = withContext(Dispatchers.IO) {
+        RetrofitManager.wanService.register(username, password, rePassword).process()
     }
 }

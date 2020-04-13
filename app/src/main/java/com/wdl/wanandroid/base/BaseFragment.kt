@@ -52,8 +52,8 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment(), CoroutineScope b
         initView(view, savedInstanceState)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         cancel()
         mBinding?.unbind()
     }

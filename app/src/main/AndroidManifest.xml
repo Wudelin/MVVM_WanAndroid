@@ -22,7 +22,12 @@
         tools:ignore="LockedOrientationActivity"
         tools:targetApi="q">
         <activity
+            android:name=".ui.register.RegisterActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.login.LoginActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.SplashActivity"
@@ -35,7 +40,7 @@
         </activity>
         <activity
             android:name=".ui.MainActivity"
-            android:launchMode="singleInstance"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
     </application>
 

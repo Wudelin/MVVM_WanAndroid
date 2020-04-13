@@ -5,4 +5,6 @@ package com.wdl.wanandroid.base
  */
 
 const val USER_NAME = "USER_NAME"
+const val USER_ID = "USER_ID"
+const val USER_COOKIE = "USER_COOKIE"
 const val BASE_URL = "https://www.wanandroid.com"

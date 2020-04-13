@@ -30,5 +30,7 @@ ext {
     mmkvVersion = '1.1.0'
     legacyVersion = '1.0.0'
 
+    bannerVersion = '2.0.5'
+
 
 }

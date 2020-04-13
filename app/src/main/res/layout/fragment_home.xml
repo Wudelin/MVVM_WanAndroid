@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="model"
+            type="com.wdl.wanandroid.viewmodel.HomeViewModel" />
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -41,11 +44,11 @@
             <com.youth.banner.Banner
                 android:id="@+id/banner"
                 android:layout_width="match_parent"
-                app:is_auto_loop="true"
-                app:delay_time="2000"
-                app:is_infinite_loop="true"
                 android:layout_height="140dp"
                 android:layout_marginTop="20dp"
+                app:delay_time="2000"
+                app:is_auto_loop="true"
+                app:is_infinite_loop="true"
                 app:layout_constraintTop_toBottomOf="@id/tv" />
 
 

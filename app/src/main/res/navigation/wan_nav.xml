@@ -10,7 +10,11 @@
         android:id="@+id/home_dest"
         android:name="com.wdl.wanandroid.ui.main.HomeFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_home_dest_to_webActivity"
+            app:destination="@id/webActivity" />
+    </fragment>
     <fragment
         android:id="@+id/project_dest"
         android:name="com.wdl.wanandroid.ui.main.ProjectFragment"
@@ -30,6 +34,15 @@
         android:id="@+id/login_activity"
         android:name="com.wdl.wanandroid.ui.login.LoginActivity"
         android:label="LoginActivity" />
+    <activity
+        android:id="@+id/webActivity"
+        android:name="com.wdl.wanandroid.ui.web.WebActivity"
+        android:label="WebActivity">
+        <argument
+            android:name="WEB_URL"
+            android:defaultValue="https://www.baidu.com"
+            app:argType="string" />
+    </activity>
 
 
 </navigation>

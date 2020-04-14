@@ -21,6 +21,7 @@
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity"
         tools:targetApi="q">
+        <activity android:name=".ui.web.WebActivity"></activity>
         <activity
             android:name=".ui.register.RegisterActivity"
             android:launchMode="singleTask"

@@ -24,6 +24,8 @@
         android:textColor="@color/app_bar_title_color"
         android:textSize="@dimen/title_text_size"
         android:textStyle="bold"
+        android:maxLength="10"
+        android:ellipsize="end"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

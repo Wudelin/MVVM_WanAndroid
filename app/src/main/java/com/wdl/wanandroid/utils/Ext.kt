@@ -1,7 +1,9 @@
 package com.wdl.wanandroid.utils
 
 import android.content.Context
+import android.content.res.Resources
 import android.text.TextUtils
+import android.util.TypedValue
 import android.widget.Toast
 import com.wdl.wanandroid.base.Results
 import retrofit2.Response
@@ -39,4 +41,12 @@ fun <T> Response<T>.process(): Results<T> {
 
 fun String.isEmpty(): Boolean {
     return TextUtils.isEmpty(this)
+}
+
+fun dp2px(dp: Float): Float {
+    return TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        dp,
+        Resources.getSystem().displayMetrics
+    )
 }

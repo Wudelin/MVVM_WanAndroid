@@ -26,7 +26,7 @@ import kotlinx.coroutines.MainScope
 abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity(),
     CoroutineScope by MainScope() {
 
-    protected val mBack = object : TitleBar.OnBackListener {
+    protected var mBack: TitleBar.OnBackListener? = object : TitleBar.OnBackListener {
         override fun onBack(v: View) {
             finish()
         }
@@ -86,6 +86,7 @@ abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity(),
     override fun onDestroy() {
         super.onDestroy()
         ActivityStackManager.remove(this)
+        mBack = null
         mBinding.unbind()
     }
 

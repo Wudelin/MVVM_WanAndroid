@@ -47,4 +47,6 @@ dependencies {
     // 资源 https://www.lottiefiles.com/
     // 文档 http://airbnb.io/lottie/#/android?id=sample-app
     api "com.airbnb.android:lottie:$rootProject.ext.lottieVersion"
+
+    api "com.github.CymChad:BaseRecyclerViewAdapterHelper:$rootProject.ext.brvhVersion"
 }

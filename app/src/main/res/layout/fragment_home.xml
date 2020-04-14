@@ -8,59 +8,119 @@
         <variable
             name="model"
             type="com.wdl.wanandroid.viewmodel.HomeViewModel" />
+
+        <variable
+            name="adapter"
+            type="com.wdl.wanandroid.adapter.TabAdapter" />
     </data>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        tools:context=".ui.main.HomeFragment">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <FrameLayout
+            android:id="@+id/fr"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".ui.main.HomeFragment">
+            android:layout_height="44dp"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <FrameLayout
-                android:id="@+id/fr"
+            <TextView
+                android:layout_width="85dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/home_title_answer_bg"
+                android:gravity="center"
+                android:text="问答"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/tv"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="文章列表"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/title_text_size"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="85dp"
-                    android:layout_height="25dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="15dp"
-                    android:background="@drawable/home_title_answer_bg"
-                    android:gravity="center"
-                    android:text="问答"
-                    android:textSize="12dp" />
+        </FrameLayout>
 
-                <TextView
-                    android:id="@+id/tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="文章列表"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/title_text_size"
-                    android:textStyle="bold" />
+        <com.youth.banner.Banner
+            android:id="@+id/banner"
+            data="@{model.MBannerData}"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="15dp"
+            app:indicator_normal_color="#A5FFFFFF"
+            app:is_auto_loop="true"
+            app:is_infinite_loop="true"
+            app:layout_constraintTop_toBottomOf="@id/fr" />
 
-            </FrameLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:adapter="@{adapter}"
+            app:layoutManager="GridLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/banner"
+            app:spanCount="3" />
 
-            <com.youth.banner.Banner
-                android:id="@+id/banner"
+        <View
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="#63EFF3F3"
+            app:layout_constraintTop_toBottomOf="@id/recycler_tab" />
+
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/line1">
+
+            <View
+                android:layout_width="4dp"
+                android:layout_height="25dp"
+                android:background="@color/colorPrimary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="15dp"
+                android:text="文章列表"
+                android:textColor="#000000"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/srl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/ll">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_article"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginTop="10dp"
-                app:indicator_marginTop="10dp"
-                data="@{model.MBannerData}"
-                app:is_auto_loop="true"
-                app:is_infinite_loop="true"
-                app:layout_constraintTop_toBottomOf="@id/fr" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                app:layoutManager="LinearLayoutManager" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 </layout>

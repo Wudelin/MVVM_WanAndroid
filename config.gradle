@@ -33,6 +33,7 @@ ext {
     bannerVersion = '2.0.5'
 
     webVersion = '4.1.3'
+    brvhVersion = '3.0.2'
 
 
 }

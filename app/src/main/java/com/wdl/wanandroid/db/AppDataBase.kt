@@ -20,7 +20,7 @@ abstract class AppDataBase : RoomDatabase() {
     abstract fun getHomeArticleDao(): HomeArticleDao
 
     companion object {
-        private val instance: AppDataBase by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
+        val instance: AppDataBase by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
             Room.databaseBuilder(App.app, AppDataBase::class.java, DB_NAME).addCallback(object :
                 Callback() {
                 override fun onCreate(db: SupportSQLiteDatabase) {
@@ -34,7 +34,5 @@ abstract class AppDataBase : RoomDatabase() {
                 }
             }).build()
         }
-
-        fun getHomeArticleDao() = instance.getHomeArticleDao()
     }
 }

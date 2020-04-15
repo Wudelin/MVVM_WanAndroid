@@ -20,4 +20,6 @@ data class HomeArticleDetail(
     @ColumnInfo(name = "superChapterName") val superChapterName: String,
     @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "type") val type: Int
-)
+) {
+    var indexInResponse: Int = -1
+}

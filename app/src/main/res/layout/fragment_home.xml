@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="refreshListener"
+            type="androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener" />
+
+        <variable
             name="model"
             type="com.wdl.wanandroid.viewmodel.HomeViewModel" />
 
@@ -16,6 +20,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="20dp"
@@ -105,21 +110,24 @@
 
         </LinearLayout>
 
-
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/srl"
+            onListener="@{refreshListener}"
+            refreshStatus="@{model.mIsRefresh.booleanValue()}"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             app:layout_constraintTop_toBottomOf="@id/ll">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_article"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:scrollbars="vertical"
                 app:layoutManager="LinearLayoutManager" />
-
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

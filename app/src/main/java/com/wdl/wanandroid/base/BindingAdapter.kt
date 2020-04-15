@@ -3,6 +3,7 @@ package com.wdl.wanandroid.base
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.wdl.wanandroid.adapter.ImgBannerAdapter
 import com.wdl.wanandroid.adapter.TabAdapter
 import com.wdl.wanandroid.bean.BannerData
@@ -28,4 +29,22 @@ fun convert(view: ImageView, resId: Int) {
 @BindingAdapter(value = ["adapter"])
 fun setAdapter(view: RecyclerView, adapter: TabAdapter) {
     view.adapter = adapter
+}
+
+@BindingAdapter(value = ["onListener", "refreshStatus"])
+fun bindRefresh(
+    view: SwipeRefreshLayout,
+    listener: SwipeRefreshLayout.OnRefreshListener,
+    refreshStatus: Boolean
+) {
+    view.isRefreshing = refreshStatus
+    view.setOnRefreshListener(listener)
+}
+
+@BindingAdapter(value = [ "refreshEnable"])
+fun bindRefreshEnable(
+    view: SwipeRefreshLayout,
+    refreshStatus: Boolean
+) {
+    view.isRefreshing = refreshStatus
 }

@@ -5,7 +5,9 @@ import android.content.res.Resources
 import android.text.TextUtils
 import android.util.TypedValue
 import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
 import com.wdl.wanandroid.base.Results
+import kotlinx.coroutines.*
 import retrofit2.Response
 import java.io.IOException
 
@@ -31,8 +33,9 @@ fun <T> Response<T>.process(): Results<T> {
         val responseMessage = message()
         if (isSuccessful) {
             Results.success(body()!!)
-        } else
+        } else {
             Results.failure(Errors.NetworkError(responseCode, responseMessage))
+        }
     } catch (e: IOException) {
         Results.failure(Errors.NetworkError())
     }
@@ -49,4 +52,32 @@ fun dp2px(dp: Float): Float {
         dp,
         Resources.getSystem().displayMetrics
     )
+}
+
+
+/**
+ * 移除所有差异性计算引发的默认更新动画.
+ */
+fun RecyclerView.removeAllAnimation() {
+    val itemAnimator = DefaultItemNoAnimAnimator()
+    this.itemAnimator = itemAnimator
+    itemAnimator.supportsChangeAnimations = false
+    itemAnimator.addDuration = 0L
+    itemAnimator.changeDuration = 0L
+    itemAnimator.removeDuration = 0L
+}
+
+
+data class CoroutineCallback(
+    var block: suspend () -> Unit = {},
+    var onError: (Throwable) -> Unit = {}
+)
+
+fun CoroutineScope.safeLaunch(init: CoroutineCallback.() -> Unit): Job {
+    val callback = CoroutineCallback().apply { this.init() }
+    return launch(CoroutineExceptionHandler { _, throwable ->
+        callback.onError(throwable)
+    } + GlobalScope.coroutineContext) {
+        callback.block()
+    }
 }

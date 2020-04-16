@@ -5,7 +5,10 @@ import android.content.res.Resources
 import android.text.TextUtils
 import android.util.TypedValue
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.wdl.wanandroid.base.Results
 import kotlinx.coroutines.*
 import retrofit2.Response

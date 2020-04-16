@@ -67,5 +67,4 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 
     override fun getLayoutId(): Int = R.layout.fragment_main
 
-
 }

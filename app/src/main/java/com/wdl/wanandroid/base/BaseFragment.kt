@@ -51,6 +51,7 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment(), CoroutineScope b
         super.onDestroyView()
         cancel()
         mBinding?.unbind()
+        mBinding = null
     }
 
     abstract fun initView(view: View, savedInstanceState: Bundle?)

@@ -33,21 +33,20 @@ abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity(),
 
     }
 
-    protected val mBinding: VB by lazy {
-        DataBindingUtil.setContentView(this, getLayoutId()) as VB
-    }
+    protected var mBinding: VB? = null
+
 
     abstract fun getLayoutId(): Int
 
     override fun onCreate(savedInstanceState: Bundle?) {
         transparentStatusBar(true)
         super.onCreate(savedInstanceState)
-
+        mBinding = DataBindingUtil.setContentView(this, getLayoutId()) as VB
         // 置灰
         // 参考自：https://juejin.im/post/5e88937951882573c66cf99d
         if (isRequiredGray()) putGray()
         ActivityStackManager.add(this)
-        mBinding.lifecycleOwner = this
+        mBinding?.lifecycleOwner = this
         initView(savedInstanceState)
     }
 
@@ -87,7 +86,8 @@ abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity(),
         super.onDestroy()
         ActivityStackManager.remove(this)
         mBack = null
-        mBinding.unbind()
+        mBinding?.unbind()
+        mBinding = null
     }
 
     /**

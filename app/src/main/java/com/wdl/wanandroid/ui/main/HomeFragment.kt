@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.wdl.wanandroid.R
@@ -12,16 +13,19 @@ import com.wdl.wanandroid.adapter.ArticleAdapter
 import com.wdl.wanandroid.adapter.ImgBannerAdapter
 import com.wdl.wanandroid.adapter.TabAdapter
 import com.wdl.wanandroid.base.BaseFragment
+import com.wdl.wanandroid.base.OnItemClickListener
 import com.wdl.wanandroid.base.WEB_URL
 import com.wdl.wanandroid.bean.BannerData
 import com.wdl.wanandroid.bean.TabBean
 import com.wdl.wanandroid.databinding.FragmentHomeBinding
+import com.wdl.wanandroid.db.bean.HomeArticleDetail
 import com.wdl.wanandroid.repository.HomeLocalDataSource
 import com.wdl.wanandroid.repository.HomeRemoteDataSource
 import com.wdl.wanandroid.repository.HomeRepository
 import com.wdl.wanandroid.transformer.ScaleInTransformer
 import com.wdl.wanandroid.utils.dp2px
 import com.wdl.wanandroid.utils.removeAllAnimation
+import com.wdl.wanandroid.utils.toast
 import com.wdl.wanandroid.viewmodel.HomeViewModel
 import com.wdl.wanandroid.vmfactory.HomeModelFactory
 import com.youth.banner.indicator.CircleIndicator
@@ -62,8 +66,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun initView(view: View, savedInstanceState: Bundle?) {
 
         mBinding?.apply {
+            refreshListener = SwipeRefreshLayout.OnRefreshListener {
+                homeViewModel.refresh()
+            }
             adapter = mTabAdapter
             mBinding?.model = homeViewModel
+
+            recyclerArticle.apply {
+                adapter = mAdapter
+                removeAllAnimation()
+            }
+
             banner.apply {
                 adapter = mBannerAdapter
                 setDelayTime(5000L)
@@ -75,19 +88,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 setIndicatorSelectedColorRes(R.color.colorPrimary)
                 setOnBannerListener { data, _ ->
                     data as BannerData
-                    mNavController.navigate(R.id.action_home_dest_to_webActivity, Bundle().apply {
+                    Navigation.findNavController(view).navigate(R.id.action_main_fragment_to_webFragment, Bundle().apply {
                         putString(WEB_URL, data.url)
                     })
                 }
-            }
-
-            mBinding?.refreshListener = SwipeRefreshLayout.OnRefreshListener {
-                homeViewModel.refresh()
-            }
-
-            mBinding?.recyclerArticle?.apply {
-                adapter = mAdapter
-                removeAllAnimation()
             }
         }
 
@@ -97,6 +101,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             mAdapter.submitList(it)
             mBinding!!.recyclerArticle.scrollToPosition(0)
         })
+
+        mAdapter.mOnItemClickListener = object : OnItemClickListener<HomeArticleDetail> {
+
+            override fun onItemClick(view: View, position: Int, data: HomeArticleDetail) {
+                // TODO 跳转webview
+                requireContext().toast(data.link)
+            }
+        }
     }
 
     override fun getLayoutId(): Int = R.layout.fragment_home

@@ -3,46 +3,40 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/wan_nav"
-    app:startDestination="@id/home_dest"
-    tools:ignore="UnusedNavigation">
+    app:startDestination="@id/main_fragment">
 
     <fragment
-        android:id="@+id/home_dest"
-        android:name="com.wdl.wanandroid.ui.main.HomeFragment"
-        android:label="fragment_main"
-        tools:layout="@layout/fragment_home">
+        android:id="@+id/main_fragment"
+        android:name="com.wdl.wanandroid.ui.MainFragment"
+        android:label="HomeFragment">
         <action
-            android:id="@+id/action_home_dest_to_webActivity"
-            app:destination="@id/webActivity" />
-    </fragment>
-    <fragment
-        android:id="@+id/project_dest"
-        android:name="com.wdl.wanandroid.ui.main.ProjectFragment"
-        android:label="fragment_project"
-        tools:layout="@layout/fragment_project" />
-    <fragment
-        android:id="@+id/mine_dest"
-        android:name="com.wdl.wanandroid.ui.main.MineFragment"
-        android:label="fragment_mine"
-        tools:layout="@layout/fragment_mine">
+            android:id="@+id/action_main_fragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
         <action
-            android:id="@+id/action_mine_dest_to_loginActivity"
-            app:destination="@id/login_activity" />
+            android:id="@+id/action_main_fragment_to_webFragment"
+            app:destination="@id/webFragment" />
     </fragment>
 
-    <activity
-        android:id="@+id/login_activity"
-        android:name="com.wdl.wanandroid.ui.login.LoginActivity"
-        android:label="LoginActivity" />
-    <activity
-        android:id="@+id/webActivity"
-        android:name="com.wdl.wanandroid.ui.web.WebActivity"
-        android:label="WebActivity">
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.wdl.wanandroid.ui.login.LoginFragment"
+        android:label="LoginFragment">
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.wdl.wanandroid.ui.register.RegisterFragment"
+        android:label="RegisterFragment" />
+    <fragment
+        android:id="@+id/webFragment"
+        android:name="com.wdl.wanandroid.ui.web.WebFragment"
+        android:label="WebFragment">
         <argument
             android:name="WEB_URL"
-            android:defaultValue="https://www.baidu.com"
             app:argType="string" />
-    </activity>
+    </fragment>
 
 
 </navigation>

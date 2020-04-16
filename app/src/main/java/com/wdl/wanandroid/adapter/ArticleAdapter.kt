@@ -1,14 +1,9 @@
 package com.wdl.wanandroid.adapter
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
-import androidx.paging.AsyncPagedListDiffer
-import androidx.paging.PagedList
-import androidx.paging.PagedListAdapter
+
 import androidx.recyclerview.widget.DiffUtil
 import com.wdl.wanandroid.R
+import com.wdl.wanandroid.base.BasePagedListAdapter
 import com.wdl.wanandroid.base.BaseViewHolder
 import com.wdl.wanandroid.databinding.ArticleItemLayoutBinding
 import com.wdl.wanandroid.db.bean.HomeArticleDetail
@@ -17,34 +12,7 @@ import com.wdl.wanandroid.db.bean.HomeArticleDetail
  * Create by: wdl at 2020/4/15 15:15
  */
 class ArticleAdapter :
-    PagedListAdapter<HomeArticleDetail, HomePageVH>(DIFF_CALLBACK) {
-
-    private var mDiffer: AsyncPagedListDiffer<HomeArticleDetail>? = null
-
-    init {
-        mDiffer = AsyncPagedListDiffer(this, DIFF_CALLBACK)
-        setHasStableIds(true)
-    }
-
-    private fun getItemData(position: Int): HomeArticleDetail? = getItem(position)
-//
-//    override fun getItemCount(): Int = mDiffer?.itemCount ?: 0
-//
-//    override fun getItemId(position: Int): Long = generateItemId(mDiffer, position)
-
-//    override fun submitList(pagedList: PagedList<HomeArticleDetail>?) {
-//        pagedList?.addWeakCallback(pagedList.snapshot(), object : BasePagedListCallback() {
-//            override fun onInserted(position: Int, count: Int) {
-//                mDiffer?.submitList(pagedList)
-//            }
-//        })
-//    }
-
-    private fun generateItemId(
-        differ: AsyncPagedListDiffer<HomeArticleDetail>?,
-        position: Int
-    ): Long =
-        differ?.getItem(position)?.id?.toLong() ?: 0L
+    BasePagedListAdapter<HomeArticleDetail, ArticleItemLayoutBinding>(DIFF_CALLBACK) {
 
     companion object {
         val DIFF_CALLBACK: DiffUtil.ItemCallback<HomeArticleDetail> =
@@ -62,41 +30,15 @@ class ArticleAdapter :
             }
     }
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): HomePageVH {
-        return HomePageVH(
-            DataBindingUtil.inflate(
-                LayoutInflater.from(parent.context),
-                R.layout.article_item_layout,
-                parent,
-                false
-            )
-        )
+    override fun getLayoutId(viewType: Int): Int = R.layout.article_item_layout
+
+    override fun bindData(
+        data: HomeArticleDetail,
+        holder: BaseViewHolder<ArticleItemLayoutBinding>,
+        position: Int
+    ) {
+        holder.binding.model = data
     }
 
-    override fun onBindViewHolder(holder: HomePageVH, position: Int) {
-        val data = getItemData(position) ?: return
-        holder.binding.executePendingBindings()
-        (holder.binding as ArticleItemLayoutBinding).model = data
-    }
 }
 
-class HomePageVH(bing: ViewDataBinding) :
-    BaseViewHolder<ArticleItemLayoutBinding>(bing)
-
-
-abstract class BasePagedListCallback : PagedList.Callback() {
-    override fun onChanged(position: Int, count: Int) {
-
-    }
-
-    override fun onInserted(position: Int, count: Int) {
-
-    }
-
-    override fun onRemoved(position: Int, count: Int) {
-
-    }
-}

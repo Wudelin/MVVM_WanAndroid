@@ -32,5 +32,5 @@ interface HomeArticleDao {
      * 获取存的数据的数量
      */
     @Query("select Count(1) from home_article")
-    fun fetchCount(): Int?
+    suspend fun fetchCount(): Int?
 }

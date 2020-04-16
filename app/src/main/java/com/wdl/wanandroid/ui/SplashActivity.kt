@@ -6,6 +6,9 @@ import com.wdl.wanandroid.R
 import com.wdl.wanandroid.base.BaseActivity
 import com.wdl.wanandroid.databinding.ActivitySplashBinding
 import kotlinx.android.synthetic.main.activity_splash.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 

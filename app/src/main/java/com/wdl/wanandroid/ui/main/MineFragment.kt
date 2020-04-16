@@ -3,7 +3,7 @@ package com.wdl.wanandroid.ui.main
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
-
+import androidx.navigation.Navigation
 import com.wdl.wanandroid.R
 import com.wdl.wanandroid.base.BaseFragment
 import com.wdl.wanandroid.base.USER_NAME
@@ -20,7 +20,7 @@ class MineFragment : BaseFragment<FragmentMineBinding>() {
     override fun initView(view: View, savedInstanceState: Bundle?) {
         btn_test.setOnClickListener {
             if (MMKVUtil.get(USER_NAME, "").toString().isEmpty())
-                mNavController.navigate(R.id.action_mine_dest_to_loginActivity)
+                Navigation.findNavController(it).navigate(R.id.action_main_fragment_to_loginFragment)
         }
     }
 

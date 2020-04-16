@@ -1,52 +1,54 @@
 package com.wdl.wanandroid.ui.web
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.webkit.WebView
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import com.just.agentweb.AgentWeb
 import com.just.agentweb.WebChromeClient
+
 import com.wdl.wanandroid.R
-import com.wdl.wanandroid.base.BaseActivity
+import com.wdl.wanandroid.base.BaseFragment
 import com.wdl.wanandroid.base.WEB_URL
-import com.wdl.wanandroid.databinding.ActivityWebviewBinding
-import com.wdl.wanandroid.widget.TitleBar
-import com.youth.banner.listener.OnBannerListener
+import com.wdl.wanandroid.databinding.FragmentWebBinding
 
-
-class WebActivity : BaseActivity<ActivityWebviewBinding>() {
-
+/**
+ * A simple [Fragment] subclass.
+ */
+class WebFragment : BaseFragment<FragmentWebBinding>() {
     private val mAgentWeb by lazy {
         AgentWeb.with(this)
-            .setAgentWebParent((mBinding.fr as FrameLayout?)!!, LinearLayout.LayoutParams(-1, -1))
+            .setAgentWebParent(mBinding?.fr!!, LinearLayout.LayoutParams(-1, -1))
             .useDefaultIndicator()
             .createAgentWeb()
             .ready()
             .go(url)
     }
 
-    private val url: String by lazy {
-        intent.getStringExtra(WEB_URL)
+    private val url: String? by lazy {
+        arguments?.getString(WEB_URL)
     }
 
-    override fun getLayoutId(): Int = R.layout.activity_webview
-
-    override fun initView(savedInstanceState: Bundle?) {
+    override fun initView(view: View, savedInstanceState: Bundle?) {
         mAgentWeb.webCreator.webView.webChromeClient = object : WebChromeClient() {
             override fun onReceivedTitle(view: WebView?, title: String?) {
-                mBinding.tb.apply {
+                mBinding?.tb?.apply {
                     setTitle(title ?: "")
                 }
                 super.onReceivedTitle(view, title)
             }
         }
 
-        mBinding.tb.apply {
+        mBinding?.tb?.apply {
             mBackListener = mBack
         }
-
     }
+
+    override fun getLayoutId(): Int = R.layout.fragment_web
 
     override fun onPause() {
         mAgentWeb.webLifeCycle.onPause()

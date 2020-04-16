@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagedList
-import com.qingmei2.architecture.core.ext.paging.toLiveDataPagedList
+import com.wdl.module_aac.paging.toLiveDataPagedList
 import com.wdl.module_aac.paging.PagingRequestHelper
 import com.wdl.wanandroid.base.Results
 import com.wdl.wanandroid.bean.BannerData
@@ -102,7 +102,7 @@ class HomeViewModel(private val repository: HomeRepository) : ViewModel() {
         override fun onItemAtEndLoaded(itemAtEnd: HomeArticleDetail) {
             super.onItemAtEndLoaded(itemAtEnd)
             viewModelScope.launch {
-                val currentPageIndex = ((repository.fetchCount() ?: 0) / 20) + 1
+                val currentPageIndex = ((repository.fetchCount() ?: 0) / 20)
                 val nextPageIndex = currentPageIndex + 1
                 mHelper.runIfNotRunning(PagingRequestHelper.RequestType.AFTER) {
                     viewModelScope.safeLaunch {

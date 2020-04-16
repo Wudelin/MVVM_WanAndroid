@@ -56,7 +56,9 @@ dependencies {
     def room_version = "2.2.5"
     implementation project(":module_aac")
     implementation project(":module_base")
-    kapt "androidx.room:room-compiler:$room_version" // For Kotlin use kapt instead of annotationProcessor
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    kapt "androidx.room:room-compiler:$room_version"
+    // For Kotlin use kapt instead of annotationProcessor
     implementation "com.tencent:mmkv:$rootProject.ext.mmkvVersion"
     implementation "com.just.agentweb:agentweb:$rootProject.ext.webVersion"
     implementation "androidx.legacy:legacy-support-v4:$rootProject.ext.legacyVersion"

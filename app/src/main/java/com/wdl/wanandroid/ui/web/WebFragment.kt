@@ -1,32 +1,25 @@
 package com.wdl.wanandroid.ui.web
 
+import android.graphics.PixelFormat
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.webkit.WebView
 import android.widget.FrameLayout
-import android.widget.LinearLayout
-import com.just.agentweb.AgentWeb
-import com.just.agentweb.WebChromeClient
-
+import androidx.fragment.app.Fragment
+import com.tencent.smtt.sdk.WebView
 import com.wdl.wanandroid.R
 import com.wdl.wanandroid.base.BaseFragment
 import com.wdl.wanandroid.base.WEB_URL
 import com.wdl.wanandroid.databinding.FragmentWebBinding
+import com.wdl.module_base.x5web.X5WebView
+
 
 /**
  * A simple [Fragment] subclass.
  */
 class WebFragment : BaseFragment<FragmentWebBinding>() {
-    private val mAgentWeb by lazy {
-        AgentWeb.with(this)
-            .setAgentWebParent(mBinding?.fr!!, LinearLayout.LayoutParams(-1, -1))
-            .useDefaultIndicator()
-            .createAgentWeb()
-            .ready()
-            .go(url)
+
+    private val mWebView: X5WebView by lazy {
+        X5WebView(requireContext(), null)
     }
 
     private val url: String? by lazy {
@@ -34,34 +27,50 @@ class WebFragment : BaseFragment<FragmentWebBinding>() {
     }
 
     override fun initView(view: View, savedInstanceState: Bundle?) {
-        mAgentWeb.webCreator.webView.webChromeClient = object : WebChromeClient() {
-            override fun onReceivedTitle(view: WebView?, title: String?) {
-                mBinding?.tb?.apply {
-                    setTitle(title ?: "")
-                }
-                super.onReceivedTitle(view, title)
-            }
-        }
 
-        mBinding?.tb?.apply {
-            mBackListener = mBack
+        requireActivity().window.setFormat(PixelFormat.TRANSLUCENT);
+
+        mBinding?.apply {
+            fr.addView(
+                mWebView, FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.MATCH_PARENT,
+                    FrameLayout.LayoutParams.MATCH_PARENT
+                )
+            )
+            mWebView.webChromeClient = object : com.tencent.smtt.sdk.WebChromeClient() {
+                override fun onReceivedTitle(p0: WebView?, title: String?) {
+
+                    tb.apply {
+                        setTitle(title ?: "")
+                    }
+                    super.onReceivedTitle(p0, title)
+                }
+
+                override fun onProgressChanged(p0: WebView?, p1: Int) {
+                    super.onProgressChanged(p0, p1)
+                    if (p1 == 100) {
+                        pb.visibility = View.GONE
+                    } else {
+                        pb.visibility = View.VISIBLE
+                        pb.progress = p1
+                    }
+
+                }
+
+            }
+            mWebView.loadUrl(url)
+
+            tb.apply {
+                mBackListener = mBack
+            }
         }
     }
 
     override fun getLayoutId(): Int = R.layout.fragment_web
 
-    override fun onPause() {
-        mAgentWeb.webLifeCycle.onPause()
-        super.onPause()
-    }
 
-    override fun onResume() {
-        mAgentWeb.webLifeCycle.onResume()
-        super.onResume()
-    }
-
-    override fun onDestroy() {
-        mAgentWeb.webLifeCycle.onDestroy()
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mWebView.destroy()
     }
 }

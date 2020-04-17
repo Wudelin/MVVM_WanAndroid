@@ -60,10 +60,7 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
     // For Kotlin use kapt instead of annotationProcessor
     implementation "com.tencent:mmkv:$rootProject.ext.mmkvVersion"
-    implementation "com.just.agentweb:agentweb:$rootProject.ext.webVersion"
     implementation "androidx.legacy:legacy-support-v4:$rootProject.ext.legacyVersion"
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$rootProject.ext.leakcanaryVersion"
     implementation "com.youth.banner:banner:$rootProject.ext.bannerVersion"
-    debugImplementation 'com.amitshekhar.android:debug-db:1.0.3'
-
 }

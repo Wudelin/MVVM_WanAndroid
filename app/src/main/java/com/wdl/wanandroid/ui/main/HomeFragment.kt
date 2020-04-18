@@ -88,9 +88,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 setIndicatorSelectedColorRes(R.color.colorPrimary)
                 setOnBannerListener { data, _ ->
                     data as BannerData
-                    Navigation.findNavController(view).navigate(R.id.action_main_fragment_to_webFragment, Bundle().apply {
-                        putString(WEB_URL, data.url)
-                    })
+                    Navigation.findNavController(view)
+                        .navigate(R.id.action_main_fragment_to_webFragment, Bundle().apply {
+                            putString(WEB_URL, data.url)
+                        })
                 }
             }
         }
@@ -105,8 +106,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         mAdapter.mOnItemClickListener = object : OnItemClickListener<HomeArticleDetail> {
 
             override fun onItemClick(view: View, position: Int, data: HomeArticleDetail) {
-                // TODO 跳转webview
-                requireContext().toast(data.link)
+                Navigation.findNavController(view)
+                    .navigate(R.id.action_main_fragment_to_webFragment, Bundle().apply {
+                        putString(WEB_URL, data.link)
+                    })
             }
         }
     }

@@ -18,6 +18,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent" />
+        <ProgressBar
+            android:id="@+id/pb"
+            android:max="100"
+            android:progressDrawable="@drawable/progress"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:scrollbars="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
 
         <FrameLayout
             android:id="@+id/fr"

@@ -37,13 +37,13 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment(), CoroutineScope b
         // 非中断保存，不会随着Activity销毁而销毁
         retainInstance = true
         mBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
+        mBinding?.lifecycleOwner = this
         return mBinding!!.root
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mBinding?.lifecycleOwner = this
         initView(view, savedInstanceState)
     }
 

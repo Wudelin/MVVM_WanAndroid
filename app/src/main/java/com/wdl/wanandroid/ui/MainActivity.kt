@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
+import com.tencent.bugly.crashreport.CrashReport
 import com.wdl.wanandroid.R
 import com.wdl.wanandroid.base.BaseActivity
 import com.wdl.wanandroid.databinding.ActivityMainBinding
@@ -20,6 +21,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun getLayoutId(): Int = R.layout.activity_main
 
     override fun initView(savedInstanceState: Bundle?) {
+
+//        CrashReport.testJavaCrash()
 //        val host: NavHostFragment =
 //            supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment?
 //                ?: return

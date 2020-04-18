@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.wdl.wanandroid.navigation;
+package com.wdl.module_aac.navigation;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -37,7 +37,7 @@ import androidx.navigation.NavHostController;
 import androidx.navigation.Navigation;
 import androidx.navigation.Navigator;
 
-import com.wdl.wanandroid.R;
+import com.wdl.module_aac.R;
 
 
 /**

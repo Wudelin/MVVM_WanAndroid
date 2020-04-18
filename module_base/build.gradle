@@ -49,4 +49,8 @@ dependencies {
     api "com.airbnb.android:lottie:$rootProject.ext.lottieVersion"
 
     api "com.github.CymChad:BaseRecyclerViewAdapterHelper:$rootProject.ext.brvhVersion"
+
+    api "me.jessyan:autosize:$rootProject.ext.autosizeVersion"
+
+    api "com.tencent.tbs.tbssdk:sdk:$rootProject.ext.webVersion"
 }

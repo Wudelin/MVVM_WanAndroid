@@ -26,11 +26,14 @@ class HomeRepository(
     /**
      * 获取首页Banner
      */
-    suspend fun getBanner() = withContext(Dispatchers.IO) { remoteDataSource.banner() }
+    suspend fun fetchBanner() = withContext(Dispatchers.IO) { remoteDataSource.banner() }
 
     suspend fun fetchArticleByPage(page: Int) = withContext(Dispatchers.IO) {
         remoteDataSource.fetchArticleByPage(page)
     }
+
+    suspend fun fetchTopArticleByPage() =
+        withContext(Dispatchers.IO) { remoteDataSource.fetchTopArticleByPage() }
 
 
     /**
@@ -99,6 +102,12 @@ class HomeRemoteDataSource(private val api: WanApi = RetrofitManager.wanService)
      */
     @WorkerThread
     suspend fun fetchArticleByPage(page: Int) = api.article(page)
+
+    /**
+     * 网络获取首页置顶文章
+     */
+    @WorkerThread
+    suspend fun fetchTopArticleByPage() = api.top()
 
 
 }

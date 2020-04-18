@@ -56,4 +56,10 @@ interface WanApi {
      */
     @GET("/article/list/{page}/json")
     suspend fun article(@Path("page") page: Int = 0): WanResponse<PagerResponse<List<HomeArticleDetail>>>
+
+    /**
+     * 首页文章置顶列表
+     */
+    @GET("/article/top/json")
+    suspend fun top(): WanResponse<List<HomeArticleDetail>>
 }

@@ -13,11 +13,8 @@ import com.wdl.wanandroid.db.bean.HomeArticleDetail
 import com.wdl.wanandroid.repository.HomeRepository
 import com.wdl.wanandroid.utils.WLogger
 import com.wdl.wanandroid.utils.parse
-import com.wdl.wanandroid.utils.process
 import com.wdl.wanandroid.utils.safeLaunch
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.util.concurrent.Executors
 
 /**
@@ -43,7 +40,7 @@ class HomeViewModel(private val repository: HomeRepository) : ViewModel() {
     fun getBannerData() {
         viewModelScope.safeLaunch {
             block = {
-                when (val result = repository.getBanner().parse()) {
+                when (val result = repository.fetchBanner().parse()) {
                     is Results.Success -> {
                         WLogger.e(Thread.currentThread().name)
                         mBannerData.value = result.data
@@ -57,14 +54,16 @@ class HomeViewModel(private val repository: HomeRepository) : ViewModel() {
         mIsRefresh.value = true
         viewModelScope.safeLaunch {
             block = {
-                when (val result = repository.fetchArticleByPage(0).parse()) {
-                    is Results.Success -> {
-                        mIsRefresh.value = false
-                        repository.cleanAndInsert(result.data.datas)
-                    }
-                    is Results.Failure -> {
-                        mIsRefresh.value = false
-                    }
+
+                val top = repository.fetchTopArticleByPage().parse()
+                val nor = repository.fetchArticleByPage(0).parse()
+                mIsRefresh.value = false
+                if (top is Results.Success && nor is Results.Success) {
+                    repository.cleanAndInsert(top.data.plus(nor.data.datas))
+                } else if (top is Results.Success && nor is Results.Failure) {
+                    repository.cleanAndInsert(top.data)
+                } else if (top is Results.Failure && nor is Results.Success) {
+                    repository.cleanAndInsert(nor.data.datas)
                 }
             }
         }
@@ -97,14 +96,18 @@ class HomeViewModel(private val repository: HomeRepository) : ViewModel() {
             mHelper.runIfNotRunning(PagingRequestHelper.RequestType.INITIAL) { callback ->
                 viewModelScope.safeLaunch {
                     block = {
-                        when (val result = repository.fetchArticleByPage(0).parse()) {
-                            is Results.Success -> {
-                                handlerRes(result.data.datas, 0)
-                                callback.recordSuccess()
-                            }
-                            is Results.Failure -> {
-                                //callback.recordFailure()
-                            }
+                        val top = repository.fetchTopArticleByPage().parse()
+                        val nor = repository.fetchArticleByPage(0).parse()
+
+                        if (top is Results.Success && nor is Results.Success) {
+                            handlerRes(top.data.plus(nor.data.datas), 0)
+                            callback.recordSuccess()
+                        } else if (top is Results.Success && nor is Results.Failure) {
+                            handlerRes(top.data, 0)
+                            callback.recordSuccess()
+                        } else if (top is Results.Failure && nor is Results.Success) {
+                            handlerRes(nor.data.datas, 0)
+                            callback.recordSuccess()
                         }
                     }
                 }

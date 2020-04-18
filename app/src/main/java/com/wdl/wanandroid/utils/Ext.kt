@@ -5,14 +5,17 @@ import android.content.res.Resources
 import android.text.TextUtils
 import android.util.TypedValue
 import android.widget.Toast
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
+import com.wdl.wanandroid.base.BaseResponse
 import com.wdl.wanandroid.base.Results
 import kotlinx.coroutines.*
 import retrofit2.Response
 import java.io.IOException
+import java.lang.Error
+import java.lang.Exception
 
 /**
  * Create by: wdl at 2020/4/13 11:30
@@ -72,11 +75,13 @@ fun RecyclerView.removeAllAnimation() {
 
 
 data class CoroutineCallback(
-    var block: suspend () -> Unit = {},
+    var block: suspend () -> Any = {},
     var onError: (Throwable) -> Unit = {}
 )
 
-fun CoroutineScope.safeLaunch(init: CoroutineCallback.() -> Unit): Job {
+fun CoroutineScope.safeLaunch(
+    init: CoroutineCallback.() -> Unit
+): Job {
     val callback = CoroutineCallback().apply { this.init() }
     return launch(CoroutineExceptionHandler { _, throwable ->
         callback.onError(throwable)
@@ -84,3 +89,26 @@ fun CoroutineScope.safeLaunch(init: CoroutineCallback.() -> Unit): Job {
         callback.block()
     }
 }
+
+
+fun <T> ViewModel.safeLaunch(block: suspend () -> BaseResponse<T>, result: (Results<T>) -> Unit) {
+    viewModelScope.launch {
+        runCatching {
+            withContext(Dispatchers.IO) {
+                block()
+            }
+        }.onSuccess {
+            result(it.parse())
+        }.onFailure {
+            // TODO 网络请求失败
+            result(Results.failure(Errors.NetworkError(desc = it.message!!)))
+        }
+    }
+}
+
+fun <T> BaseResponse<T>.parse(): Results<T> =
+    if (isSuccess()) {
+        Results.success(getResponseData())
+    } else {
+        Results.failure(Errors.NetworkError(getResponseCode(), getResponseMessage()))
+    }

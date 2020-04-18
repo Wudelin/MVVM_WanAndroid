@@ -9,6 +9,7 @@ import com.wdl.wanandroid.db.AppDataBase
 import com.wdl.wanandroid.db.bean.HomeArticleDetail
 import com.wdl.wanandroid.remote.net.RetrofitManager
 import com.wdl.wanandroid.remote.net.WanApi
+import com.wdl.wanandroid.utils.WLogger
 import com.wdl.wanandroid.utils.process
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -25,7 +26,12 @@ class HomeRepository(
     /**
      * 获取首页Banner
      */
-    suspend fun getBanner() = remoteDataSource.banner()
+    suspend fun getBanner() = withContext(Dispatchers.IO) { remoteDataSource.banner() }
+
+    suspend fun fetchArticleByPage(page: Int) = withContext(Dispatchers.IO) {
+        remoteDataSource.fetchArticleByPage(page)
+    }
+
 
     /**
      * 本地数据库获取DataSource.Factory
@@ -33,16 +39,11 @@ class HomeRepository(
     fun fetchHomeArticleDF(): DataSource.Factory<Int, HomeArticleDetail> =
         localDataSource.fetchHomeArticleFromDB()
 
-    suspend fun fetchArticleByPage(page: Int): Results<HomeArticleRes> =
-        remoteDataSource.fetchArticleByPage(page).process()
-
-    suspend fun cleanAndInsert(result: List<HomeArticleDetail>) {
+    suspend fun cleanAndInsert(result: List<HomeArticleDetail>) =
         localDataSource.cleanAndInsert(result)
-    }
 
-    suspend fun insertNewPageData(result: List<HomeArticleDetail>) {
+    suspend fun insertNewPageData(result: List<HomeArticleDetail>) =
         localDataSource.insertNewPageData(result)
-    }
 
     suspend fun fetchCount() = localDataSource.fetchCount()
 
@@ -90,18 +91,14 @@ class HomeRemoteDataSource(private val api: WanApi = RetrofitManager.wanService)
      * banner
      */
     @WorkerThread
-    suspend fun banner() = withContext(Dispatchers.IO) {
-        api.banner()
-    }
+    suspend fun banner() = api.banner()
+
 
     /**
      * 网络获取首页文章
      */
     @WorkerThread
-    suspend fun fetchArticleByPage(page: Int): Response<HomeArticleRes> =
-        withContext(Dispatchers.IO) {
-            api.article(page)
-        }
+    suspend fun fetchArticleByPage(page: Int) = api.article(page)
 
 
 }

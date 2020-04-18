@@ -11,18 +11,25 @@ import com.wdl.wanandroid.base.Results
 import com.wdl.wanandroid.bean.BannerData
 import com.wdl.wanandroid.db.bean.HomeArticleDetail
 import com.wdl.wanandroid.repository.HomeRepository
+import com.wdl.wanandroid.utils.WLogger
+import com.wdl.wanandroid.utils.parse
 import com.wdl.wanandroid.utils.process
 import com.wdl.wanandroid.utils.safeLaunch
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.concurrent.Executors
 
 /**
  * Create by: wdl at 2020/4/10 17:03
+ *
+ * 数据库操作一律不使用witchContext(Dispatchers.IO) => 本身就开启事务
+ *
  */
 class HomeViewModel(private val repository: HomeRepository) : ViewModel() {
 
     var mBannerData: MutableLiveData<List<BannerData>> =
-        MutableLiveData<List<BannerData>>(emptyList())
+        MutableLiveData(emptyList())
 
     /**
      * 首页文章，从DataSource中取
@@ -31,14 +38,15 @@ class HomeViewModel(private val repository: HomeRepository) : ViewModel() {
         get() = repository.fetchHomeArticleDF()
             .toLiveDataPagedList(boundaryCallback = mBoundaryCallback)
 
-    val mIsRefresh= MutableLiveData(false)
+    val mIsRefresh = MutableLiveData(false)
 
     fun getBannerData() {
         viewModelScope.safeLaunch {
             block = {
-                when (val result = repository.getBanner().process()) {
+                when (val result = repository.getBanner().parse()) {
                     is Results.Success -> {
-                        mBannerData.postValue(result.data.data)
+                        WLogger.e(Thread.currentThread().name)
+                        mBannerData.value = result.data
                     }
                 }
             }
@@ -46,30 +54,31 @@ class HomeViewModel(private val repository: HomeRepository) : ViewModel() {
     }
 
     fun refresh() {
-        mIsRefresh.postValue(true)
+        mIsRefresh.value = true
         viewModelScope.safeLaunch {
             block = {
-                when (val result = repository.fetchArticleByPage(0)) {
+                when (val result = repository.fetchArticleByPage(0).parse()) {
                     is Results.Success -> {
-                        repository.cleanAndInsert(result.data.data.datas)
+                        mIsRefresh.value = false
+                        repository.cleanAndInsert(result.data.datas)
+                    }
+                    is Results.Failure -> {
+                        mIsRefresh.value = false
                     }
                 }
-                mIsRefresh.postValue(false)
             }
         }
     }
 
     private val mBoundaryCallback = HomeBoundaryCallback { result, pageIndex ->
-        viewModelScope.safeLaunch {
-            block = {
-                // pageIndex = 0 刷新 否则插入
-                when (pageIndex == 0) {
-                    true -> {
-                        repository.cleanAndInsert(result)
-                    }
-                    false -> {
-                        repository.insertNewPageData(result)
-                    }
+        viewModelScope.launch {
+            // pageIndex = 0 刷新 否则插入
+            when (pageIndex == 0) {
+                true -> {
+                    repository.cleanAndInsert(result)
+                }
+                false -> {
+                    repository.insertNewPageData(result)
                 }
             }
         }
@@ -85,15 +94,18 @@ class HomeViewModel(private val repository: HomeRepository) : ViewModel() {
         override fun onZeroItemsLoaded() {
             super.onZeroItemsLoaded()
 
-            mHelper.runIfNotRunning(PagingRequestHelper.RequestType.INITIAL) {
+            mHelper.runIfNotRunning(PagingRequestHelper.RequestType.INITIAL) { callback ->
                 viewModelScope.safeLaunch {
                     block = {
-                        when (val result = repository.fetchArticleByPage(0)) {
+                        when (val result = repository.fetchArticleByPage(0).parse()) {
                             is Results.Success -> {
-                                handlerRes(result.data.data.datas, 0)
+                                handlerRes(result.data.datas, 0)
+                                callback.recordSuccess()
+                            }
+                            is Results.Failure -> {
+                                //callback.recordFailure()
                             }
                         }
-                        it.recordSuccess()
                     }
                 }
             }
@@ -101,23 +113,25 @@ class HomeViewModel(private val repository: HomeRepository) : ViewModel() {
 
         override fun onItemAtEndLoaded(itemAtEnd: HomeArticleDetail) {
             super.onItemAtEndLoaded(itemAtEnd)
-            viewModelScope.launch {
-                val currentPageIndex = ((repository.fetchCount() ?: 0) / 20)
-                val nextPageIndex = currentPageIndex + 1
-                mHelper.runIfNotRunning(PagingRequestHelper.RequestType.AFTER) {
-                    viewModelScope.safeLaunch {
-                        block = {
-                            when (val result = repository.fetchArticleByPage(nextPageIndex)) {
-                                is Results.Success -> {
-                                    handlerRes(result.data.data.datas, nextPageIndex)
-                                }
+
+            mHelper.runIfNotRunning(PagingRequestHelper.RequestType.AFTER) {
+                viewModelScope.safeLaunch {
+                    block = {
+                        val currentPageIndex = ((repository.fetchCount() ?: 0) / 20)
+                        val nextPageIndex = currentPageIndex + 1
+                        when (val result =
+                            repository.fetchArticleByPage(nextPageIndex).parse()) {
+                            is Results.Success -> {
+                                handlerRes(result.data.datas, nextPageIndex)
+                                it.recordSuccess()
                             }
-                            it.recordSuccess()
+                            is Results.Failure -> {
+                                //it.recordFailure()
+                            }
                         }
                     }
                 }
             }
         }
     }
-
 }

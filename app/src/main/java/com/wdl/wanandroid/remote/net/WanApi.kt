@@ -1,9 +1,13 @@
 package com.wdl.wanandroid.remote.net
 
 import com.wdl.wanandroid.base.BaseResponse
-import com.wdl.wanandroid.bean.BannerRes
+import com.wdl.wanandroid.base.PagerResponse
+import com.wdl.wanandroid.base.WanResponse
+import com.wdl.wanandroid.bean.ArticleData
+import com.wdl.wanandroid.bean.BannerData
 import com.wdl.wanandroid.bean.HomeArticleRes
 import com.wdl.wanandroid.bean.LoginRes
+import com.wdl.wanandroid.db.bean.HomeArticleDetail
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -39,17 +43,17 @@ interface WanApi {
      * 清除个人信息-Cookie等
      */
     @GET("/user/logout/json")
-    suspend fun logout(): Response<BaseResponse>
+    suspend fun logout()
 
     /**
      * 首页Banner数据
      */
     @GET("/banner/json")
-    suspend fun banner(): Response<BannerRes>
+    suspend fun banner(): WanResponse<List<BannerData>>
 
     /**
      * 首页文章列表
      */
     @GET("/article/list/{page}/json")
-    suspend fun article(@Path("page") page: Int = 0): Response<HomeArticleRes>
+    suspend fun article(@Path("page") page: Int = 0): WanResponse<PagerResponse<List<HomeArticleDetail>>>
 }

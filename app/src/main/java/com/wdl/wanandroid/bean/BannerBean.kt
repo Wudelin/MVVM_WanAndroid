@@ -4,12 +4,6 @@ package com.wdl.wanandroid.bean
  * Create by: wdl at 2020/4/13 16:13
  */
 
-data class BannerRes(
-    val `data`: List<BannerData>,
-    val errorCode: Int,
-    val errorMsg: String
-)
-
 //{
 //    "desc": "",
 //    "id": 20,

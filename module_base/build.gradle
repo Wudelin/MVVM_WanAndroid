@@ -53,4 +53,6 @@ dependencies {
     api "me.jessyan:autosize:$rootProject.ext.autosizeVersion"
 
     api "com.tencent.tbs.tbssdk:sdk:$rootProject.ext.webVersion"
+
+    api "de.hdodenhof:circleimageview:$rootProject.ext.circleimageviewVersion"
 }

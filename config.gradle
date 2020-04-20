@@ -36,6 +36,7 @@ ext {
     brvhVersion = '3.0.2'
 
     autosizeVersion = '1.2.1'
+    circleimageviewVersion = '3.1.0'
 
 
 }

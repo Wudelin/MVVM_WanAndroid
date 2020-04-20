@@ -70,7 +70,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 homeViewModel.refresh()
             }
             adapter = mTabAdapter
-            mBinding?.model = homeViewModel
+            model = homeViewModel
 
             recyclerArticle.apply {
                 adapter = mAdapter

@@ -1,5 +1,6 @@
 package com.wdl.wanandroid.base
 
+import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
@@ -16,6 +17,7 @@ import com.wdl.wanandroid.utils.BarUtils
 import com.wdl.wanandroid.widget.TitleBar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
+import me.jessyan.autosize.AutoSizeCompat
 
 
 /**
@@ -94,5 +96,13 @@ abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity(),
      * 获取ViewModel
      */
     fun <VM : ViewModel> getViewModel(clazz: Class<VM>): VM = ViewModelProvider(this).get(clazz)
+
+    /**
+     * 在任何情况下本来适配正常的布局突然出现适配失效，适配异常等问题，只要重写 Activity 的 getResources() 方法
+     */
+    override fun getResources(): Resources {
+        AutoSizeCompat.autoConvertDensityOfGlobal(super.getResources())
+        return super.getResources()
+    }
 
 }

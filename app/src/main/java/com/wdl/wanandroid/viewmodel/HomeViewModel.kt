@@ -5,8 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagedList
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.wdl.module_aac.paging.toLiveDataPagedList
 import com.wdl.module_aac.paging.PagingRequestHelper
+import com.wdl.wanandroid.App
 import com.wdl.wanandroid.base.Results
 import com.wdl.wanandroid.bean.BannerData
 import com.wdl.wanandroid.db.bean.HomeArticleDetail
@@ -14,6 +17,7 @@ import com.wdl.wanandroid.repository.HomeRepository
 import com.wdl.wanandroid.utils.WLogger
 import com.wdl.wanandroid.utils.parse
 import com.wdl.wanandroid.utils.safeLaunch
+import com.wdl.wanandroid.worker.DownloadWorker
 import kotlinx.coroutines.launch
 import java.util.concurrent.Executors
 
@@ -44,6 +48,13 @@ class HomeViewModel(private val repository: HomeRepository) : ViewModel() {
                     is Results.Success -> {
                         WLogger.e(Thread.currentThread().name)
                         mBannerData.value = result.data
+
+//                        val downloadWorkRequest = OneTimeWorkRequestBuilder<DownloadWorker>()
+//                            .build()
+//                        WorkManager.getInstance(App.app).enqueue(downloadWorkRequest)
+                    }
+                    is Results.Failure -> {
+
                     }
                 }
             }

@@ -19,8 +19,8 @@ class SaveWorker(context: Context, params: WorkerParameters) : Worker(context, p
         val paths = inputData.getStringArray(PATH)
         if (paths.isNullOrEmpty())
             return Result.failure()
-        val list = paths.map {
-            notifyRefresh(it)
+        val list = paths.mapIndexed { index, value ->
+            notifyRefresh(value, index)
         }.takeWhile {
             // takeWhile 循环遍历 -> 第一个不满足条件即退出，并且返回满足条件的数组
             it is Result.Success
@@ -28,7 +28,7 @@ class SaveWorker(context: Context, params: WorkerParameters) : Worker(context, p
         return if (list.size != paths.size) Result.failure() else Result.success()
     }
 
-    private fun notifyRefresh(path: String): Result {
+    private fun notifyRefresh(path: String, index: Int): Result {
         try {
             val bitmap = BitmapFactory.decodeStream(
                 applicationContext.contentResolver.openInputStream(
@@ -41,7 +41,7 @@ class SaveWorker(context: Context, params: WorkerParameters) : Worker(context, p
 
             // 插入图库
             val imageUrl = MediaStore.Images.Media.insertImage(
-                applicationContext.contentResolver, bitmap, "Title", "DES"
+                applicationContext.contentResolver, bitmap, "banner${index}", "banner${index}"
             )
 
             // 最后通知图库更新

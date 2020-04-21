@@ -8,6 +8,9 @@ import com.wdl.wanandroid.bean.BannerData
 import com.wdl.wanandroid.bean.HomeArticleRes
 import com.wdl.wanandroid.bean.LoginRes
 import com.wdl.wanandroid.db.bean.HomeArticleDetail
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -62,4 +65,8 @@ interface WanApi {
      */
     @GET("/article/top/json")
     suspend fun top(): WanResponse<List<HomeArticleDetail>>
+
+    @GET
+    @Streaming
+    fun downloadImg(@Url imageUrl: String): Call<ResponseBody>
 }

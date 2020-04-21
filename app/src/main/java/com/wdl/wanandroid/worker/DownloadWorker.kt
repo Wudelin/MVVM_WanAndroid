@@ -13,8 +13,11 @@ import java.io.*
 
 /**
  * 图片下载
+ *
+ * https://developer.android.google.cn/topic/libraries/architecture/workmanager/how-to/define-work
+ * https://codelabs.developers.google.com/codelabs/android-workmanager/#5
+ *
  */
-
 class DownloadWorker(val context: Context, params: WorkerParameters) : Worker(context, params) {
 
     companion object {

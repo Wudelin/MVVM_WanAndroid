@@ -12,6 +12,7 @@ import java.io.File
 
 /**
  * Create by: wdl at 2020/4/21 10:49
+ * 保存图库并通知刷新
  */
 class SaveWorker(context: Context, params: WorkerParameters) : Worker(context, params) {
     override fun doWork(): Result =

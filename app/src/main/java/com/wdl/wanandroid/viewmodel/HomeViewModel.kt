@@ -5,10 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagedList
-import androidx.work.Data
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
-import androidx.work.workDataOf
+import androidx.work.*
 import com.wdl.module_aac.paging.toLiveDataPagedList
 import com.wdl.module_aac.paging.PagingRequestHelper
 import com.wdl.wanandroid.App
@@ -52,16 +49,33 @@ class HomeViewModel(private val repository: HomeRepository) : ViewModel() {
                         WLogger.e(Thread.currentThread().name)
                         mBannerData.value = result.data
 
-                        val downloadWorkRequest = OneTimeWorkRequestBuilder<DownloadWorker>()
-                            .setInputData(
-                                workDataOf("url" to result.data[0].imagePath)
+                        val works = arrayListOf<OneTimeWorkRequest>()
+
+                        result.data.forEach {
+                            works.add(
+                                OneTimeWorkRequestBuilder<DownloadWorker>()
+                                    .setInputData(
+                                        workDataOf("url" to it.imagePath)
+                                    )
+                                    .build()
                             )
-                            .build()
+                        }
+
+//                        val downloadWorkRequest = OneTimeWorkRequestBuilder<DownloadWorker>()
+//                            .setInputData(
+//                                workDataOf("url" to result.data[0].imagePath)
+//                            )
+//                            .build()
                         val saveWorkRequest = OneTimeWorkRequestBuilder<SaveWorker>()
+                            .setInputMerger(ArrayCreatingInputMerger::class)
                             .build()
 
-                        WorkManager.getInstance(App.app).beginWith(downloadWorkRequest)
-                            .then(saveWorkRequest).enqueue()
+
+                        WorkManager.getInstance(App.app)
+                            .beginWith(works)
+                            .then(saveWorkRequest)
+                            .enqueue()
+
                     }
                     is Results.Failure -> {
 

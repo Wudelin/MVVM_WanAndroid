@@ -15,12 +15,20 @@ import java.io.File
  * 保存图库并通知刷新
  */
 class SaveWorker(context: Context, params: WorkerParameters) : Worker(context, params) {
-    override fun doWork(): Result =
-        notifyRefresh(inputData.getString(PATH)!!)
-
+    override fun doWork(): Result {
+        val paths = inputData.getStringArray(PATH)
+        if (paths.isNullOrEmpty())
+            return Result.failure()
+        val list = paths.map {
+            notifyRefresh(it)
+        }.takeWhile {
+            // takeWhile 循环遍历 -> 第一个不满足条件即退出，并且返回满足条件的数组
+            it is Result.Success
+        }
+        return if (list.size != paths.size) Result.failure() else Result.success()
+    }
 
     private fun notifyRefresh(path: String): Result {
-
         try {
             val bitmap = BitmapFactory.decodeStream(
                 applicationContext.contentResolver.openInputStream(

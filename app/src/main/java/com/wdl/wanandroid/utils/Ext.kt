@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.res.Resources
 import android.text.TextUtils
 import android.util.TypedValue
+import android.view.Window
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -129,4 +131,11 @@ fun <F : Fragment> AppCompatActivity.getFragment(fragmentClass: Class<F>): F? {
     }
 
     return null
+}
+
+fun Window.dark(alpha:Float){
+    val attr = attributes
+    attr.alpha = alpha
+    addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+    attributes = attr
 }

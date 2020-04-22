@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.*
 import android.widget.PopupWindow
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import com.wdl.wanandroid.R
 import com.wdl.wanandroid.base.BaseFragment
 import com.wdl.wanandroid.databinding.AppPopupLayoutBinding
@@ -15,8 +14,10 @@ import com.wdl.wanandroid.utils.toast
 
 
 /**
- * A simple [Fragment] subclass.
- * 我的
+ * 我的页面
+ *
+ * PopupWindow 参考：
+ * https://blog.csdn.net/chenbing81/article/details/52059979
  */
 class MineFragment : BaseFragment<FragmentMineBinding>() {
 
@@ -37,8 +38,10 @@ class MineFragment : BaseFragment<FragmentMineBinding>() {
 
     private fun showPopupWindow() {
         getPop()?.apply {
-            showAtLocation(mBinding!!.root, Gravity.BOTTOM, 0, 0)
-            darkenBackground(0.5f)
+            if (!isShowing) {
+                showAtLocation(mBinding!!.root, Gravity.BOTTOM, 0, 0)
+                darkenBackground(0.5f)
+            }
         }
     }
 
@@ -86,8 +89,10 @@ class MineFragment : BaseFragment<FragmentMineBinding>() {
 
     private fun dismiss() {
         getPop()?.apply {
-            dismiss()
-            darkenBackground(1f)
+            if (isShowing) {
+                dismiss()
+                darkenBackground(1f)
+            }
         }
     }
 

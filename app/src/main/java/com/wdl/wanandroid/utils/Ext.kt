@@ -5,10 +5,13 @@ import android.content.res.Resources
 import android.text.TextUtils
 import android.util.TypedValue
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
+import com.wdl.module_aac.navigation.NavHostFragment
 import com.wdl.wanandroid.base.BaseResponse
 import com.wdl.wanandroid.base.Results
 import kotlinx.coroutines.*
@@ -112,3 +115,18 @@ fun <T> BaseResponse<T>.parse(): Results<T> =
     } else {
         Results.failure(Errors.NetworkError(getResponseCode(), getResponseMessage()))
     }
+
+
+
+@Suppress("UNCHECKED_CAST")
+fun <F : Fragment> AppCompatActivity.getFragment(fragmentClass: Class<F>): F? {
+    val navHostFragment = this.supportFragmentManager.fragments.first() as NavHostFragment
+
+    navHostFragment.childFragmentManager.fragments.forEach {
+        if (fragmentClass.isAssignableFrom(it.javaClass)) {
+            return it as F
+        }
+    }
+
+    return null
+}

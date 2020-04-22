@@ -10,10 +10,14 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.wdl.module_aac.navigation.NavHostFragment
+import com.wdl.wanandroid.ui.MainFragment
 import com.wdl.wanandroid.utils.ActivityStackManager
 import com.wdl.wanandroid.utils.BarUtils
+import com.wdl.wanandroid.utils.getFragment
 import com.wdl.wanandroid.widget.TitleBar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
@@ -104,5 +108,15 @@ abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity(),
         AutoSizeCompat.autoConvertDensityOfGlobal(super.getResources())
         return super.getResources()
     }
+
+//    override fun onBackPressed() {
+//        //判断当前是哪个fragment
+//        val fragment = getFragment(MainFragment::class.java)
+//        if (fragment != null){
+//            finish()
+//        }else{
+//            super.onBackPressed()
+//        }
+//    }
 
 }

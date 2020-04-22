@@ -5,6 +5,7 @@
     android:id="@+id/wan_nav"
     app:startDestination="@id/main_fragment">
 
+
     <fragment
         android:id="@+id/main_fragment"
         android:name="com.wdl.wanandroid.ui.MainFragment"

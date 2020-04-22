@@ -5,6 +5,15 @@
     <string name="app_nav_project">项目</string>
     <string name="app_nav_mine">我的</string>
 
+    <string name="app_answer">问答</string>
+    <string name="app_article_list">文章列表</string>
+    <string name="app_input_username_hint">请输入用户名</string>
+    <string name="app_input_password_hint">请输入密码</string>
+    <string name="app_input_password_again_hint">请再次输入密码</string>
+    <string name="app_login">登录</string>
+    <string name="app_register">注册</string>
+    <string name="app_login_others">------------ 第三方登录 ------------</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

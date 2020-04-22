@@ -48,7 +48,7 @@
             android:drawableStart="@drawable/ic_phone"
             android:drawablePadding="5dp"
             android:ellipsize="middle"
-            android:hint="请输入用户名"
+            android:hint="@string/app_input_username_hint"
             android:inputType="text"
             android:singleLine="true"
             android:text="@={model.MUserName,default=``}"
@@ -64,7 +64,7 @@
             android:drawableStart="@drawable/ic_password"
             android:drawablePadding="5dp"
             android:ellipsize="middle"
-            android:hint="请输入密码"
+            android:hint="@string/app_input_password_hint"
             android:inputType="textPassword"
             android:singleLine="true"
             android:text="@={model.MPwd,default=``}"
@@ -81,8 +81,8 @@
             android:background="@drawable/btn_bg"
             android:enabled="@{!(TextUtils.isEmpty(model.MUserName) || TextUtils.isEmpty(model.MPwd))}"
             android:onClick="@{holder::login}"
-            android:text="登录"
-            android:textColor="@android:color/white"
+            android:text="@string/app_login"
+            android:textColor="@color/white"
             android:textSize="17dp"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/et_pwd" />
@@ -103,7 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="110dp"
             android:gravity="center"
-            android:text="------------ 第三方登录 ------------"
+            android:text="@string/app_login_others"
             app:layout_constraintTop_toBottomOf="@id/wtv" />
 
         <ImageView

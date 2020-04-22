@@ -46,7 +46,7 @@
                     android:layout_marginStart="15dp"
                     android:background="@drawable/home_title_answer_bg"
                     android:gravity="center"
-                    android:text="问答"
+                    android:text="@string/app_answer"
                     android:textSize="12dp" />
 
                 <TextView
@@ -55,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="文章列表"
+                    android:text="@string/app_article_list"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/title_text_size"
                     android:textStyle="bold" />
@@ -89,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:layout_marginTop="@dimen/dp_10"
-                android:background="#63EFF3F3"
+                android:background="@color/line"
                 app:layout_constraintTop_toBottomOf="@id/recycler_tab" />
 
             <LinearLayout
@@ -110,8 +110,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="15dp"
-                    android:text="文章列表"
-                    android:textColor="#000000"
+                    android:text="@string/app_article_list"
+                    android:textColor="@android:color/black"
                     android:textSize="16dp"
                     android:textStyle="bold" />
 

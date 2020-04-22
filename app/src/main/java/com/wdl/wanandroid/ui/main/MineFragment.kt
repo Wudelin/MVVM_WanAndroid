@@ -18,10 +18,10 @@ import kotlinx.android.synthetic.main.fragment_mine.*
 class MineFragment : BaseFragment<FragmentMineBinding>() {
 
     override fun initView(view: View, savedInstanceState: Bundle?) {
-        btn_test.setOnClickListener {
-            if (MMKVUtil.get(USER_NAME, "").toString().isEmpty())
-                Navigation.findNavController(it).navigate(R.id.action_main_fragment_to_loginFragment)
-        }
+//        btn_test.setOnClickListener {
+//            if (MMKVUtil.get(USER_NAME, "").toString().isEmpty())
+//                Navigation.findNavController(it).navigate(R.id.action_main_fragment_to_loginFragment)
+//        }
     }
 
     override fun getLayoutId(): Int = R.layout.fragment_mine

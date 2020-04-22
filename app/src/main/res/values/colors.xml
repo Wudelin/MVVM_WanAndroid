@@ -8,6 +8,8 @@
     <color name="white">#ffffff</color>
     <color name="line">#63EFF3F3</color>
     <color name="indicator_normal_color">#A5FFFFFF</color>
+    <color name="colorBlack333">#333</color>
+    <color name="colorBlack999">#999</color>
 
 
 </resources>

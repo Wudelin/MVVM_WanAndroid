@@ -48,33 +48,34 @@ class HomeViewModel(private val repository: HomeRepository) : ViewModel() {
                     is Results.Success -> {
                         WLogger.e(Thread.currentThread().name)
                         mBannerData.value = result.data
-
-                        val works = arrayListOf<OneTimeWorkRequest>()
-
-                        result.data.forEach {
-                            works.add(
-                                OneTimeWorkRequestBuilder<DownloadWorker>()
-                                    .setInputData(
-                                        workDataOf("url" to it.imagePath)
-                                    )
-                                    .build()
-                            )
-                        }
+//                        TODO WorkManager 并行下载图片并保存（已完成）
+//                        val works = arrayListOf<OneTimeWorkRequest>()
+//
+//                        result.data.forEach {
+//                            works.add(
+//                                OneTimeWorkRequestBuilder<DownloadWorker>()
+//                                    .setInputData(
+//                                        workDataOf("url" to it.imagePath)
+//                                    )
+//                                    .build()
+//                            )
+//                        }
 
 //                        val downloadWorkRequest = OneTimeWorkRequestBuilder<DownloadWorker>()
 //                            .setInputData(
 //                                workDataOf("url" to result.data[0].imagePath)
 //                            )
 //                            .build()
-                        val saveWorkRequest = OneTimeWorkRequestBuilder<SaveWorker>()
-                            .setInputMerger(ArrayCreatingInputMerger::class)
-                            .build()
 
-
-                        WorkManager.getInstance(App.app)
-                            .beginWith(works)
-                            .then(saveWorkRequest)
-                            .enqueue()
+//                        val saveWorkRequest = OneTimeWorkRequestBuilder<SaveWorker>()
+//                            .setInputMerger(ArrayCreatingInputMerger::class)
+//                            .build()
+//
+//
+//                        WorkManager.getInstance(App.app)
+//                            .beginWith(works)
+//                            .then(saveWorkRequest)
+//                            .enqueue()
 
                     }
                     is Results.Failure -> {

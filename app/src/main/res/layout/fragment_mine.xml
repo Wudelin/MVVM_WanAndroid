@@ -1,21 +1,266 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
     </data>
 
-    <FrameLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/sfl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.main.MineFragment">
+        android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/btn_test"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="test" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </FrameLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:paddingTop="?actionBarSize"
+                android:paddingBottom="?actionBarSize"
+                tools:context=".ui.main.MineFragment">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/civ"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:layout_marginStart="15dp"
+                    android:src="@mipmap/app_logo"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:text="请先登录~~"
+                    android:textColor="@color/white"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/tv_rank"
+                    app:layout_constraintLeft_toRightOf="@id/civ"
+                    app:layout_constraintTop_toTopOf="@id/civ"
+                    app:layout_constraintVertical_chainStyle="spread" />
+
+                <TextView
+                    android:id="@+id/tv_rank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:text="id：~~ 排名：~~"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@id/civ"
+                    app:layout_constraintLeft_toRightOf="@id/civ"
+                    app:layout_constraintTop_toBottomOf="@id/tv_name" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="-16dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/ll_mine_rank"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="16dp"
+                            android:src="@drawable/ic_rank" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="我的积分"
+                            android:textColor="@color/colorBlack333"
+                            android:textSize="14dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="6dp"
+                            android:text="当前积分:"
+                            android:textColor="@color/colorBlack999"
+                            android:textSize="13dp" />
+
+                        <TextView
+                            android:id="@+id/ll_tv_rank"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="15dp"
+                            android:textStyle="bold"
+                            tools:text="0" />
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_right" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_mine_collect"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="16dp"
+                            android:src="@drawable/ic_collect" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="我的收藏"
+                            android:textColor="@color/colorBlack333"
+                            android:textSize="14dp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_right" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_mine_public"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="16dp"
+                            android:src="@drawable/ic_public" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="公众号"
+                            android:textColor="@color/colorBlack333"
+                            android:textSize="14dp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_right" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp"
+                        android:background="@color/line" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_mine_about_author"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="16dp"
+                            android:src="@drawable/ic_about" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="关于作者"
+                            android:textColor="@color/colorBlack333"
+                            android:textSize="14dp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_right" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_mine_setting"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="16dp"
+                            android:src="@drawable/ic_setting" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="系统设置"
+                            android:textColor="@color/colorBlack333"
+                            android:textSize="14dp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_right" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

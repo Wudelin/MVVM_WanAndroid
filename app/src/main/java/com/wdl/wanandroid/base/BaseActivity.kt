@@ -58,20 +58,6 @@ abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity(),
 
     /** 透明状态栏 */
     open fun transparentStatusBar(lightStatusBar: Boolean) {
-//        var ui = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
-//                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-//                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            ui = if (lightStatusBar) {
-//                ui or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-//            } else {
-//                ui and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
-//            }
-//        }
-//        window.decorView.systemUiVisibility = ui
-//        window.navigationBarColor = Color.TRANSPARENT
-//        window.statusBarColor = Color.TRANSPARENT
-//        supportActionBar?.hide()
         BarUtils.setStatusBarColor(this, Color.TRANSPARENT)
         BarUtils.setStatusBarLightMode(this, true)
     }

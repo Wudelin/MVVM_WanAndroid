@@ -3,6 +3,7 @@ package com.wdl.wanandroid.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.SystemClock
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
@@ -10,6 +11,7 @@ import com.tencent.bugly.crashreport.CrashReport
 import com.wdl.wanandroid.R
 import com.wdl.wanandroid.base.BaseActivity
 import com.wdl.wanandroid.databinding.ActivityMainBinding
+import com.wdl.wanandroid.utils.toast
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
@@ -50,5 +52,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun onSupportNavigateUp(): Boolean {
         return Navigation.findNavController(this, R.id.wan_nav).navigateUp()
+    }
+
+
+    private var pressTime: Long = 0L
+    val times: Long = 2000L
+    override fun onBackPressed() {
+        if (pressTime + times > System.currentTimeMillis()) {
+            super.onBackPressed()
+            return
+        } else {
+            toast("再按一次退出~~~")
+            pressTime = System.currentTimeMillis()
+        }
     }
 }

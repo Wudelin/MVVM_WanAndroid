@@ -1,16 +1,12 @@
 package com.wdl.wanandroid.remote.net
 
-import com.wdl.wanandroid.base.BaseResponse
 import com.wdl.wanandroid.base.PagerResponse
 import com.wdl.wanandroid.base.WanResponse
-import com.wdl.wanandroid.bean.ArticleData
 import com.wdl.wanandroid.bean.BannerData
-import com.wdl.wanandroid.bean.HomeArticleRes
-import com.wdl.wanandroid.bean.LoginRes
+import com.wdl.wanandroid.bean.UserInfo
 import com.wdl.wanandroid.db.bean.HomeArticleDetail
 import okhttp3.ResponseBody
 import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -28,7 +24,7 @@ interface WanApi {
     suspend fun login(
         @Field("username") user: String,
         @Field("password") pwd: String
-    ): Response<LoginRes>
+    ): Response<WanResponse<UserInfo>>
 
     /**
      * 注册
@@ -39,7 +35,7 @@ interface WanApi {
         @Field("username") user: String,
         @Field("password") pwd: String,
         @Field("repassword") rePwd: String
-    ): Response<LoginRes>
+    ): WanResponse<UserInfo>
 
     /**
      * 退出登录

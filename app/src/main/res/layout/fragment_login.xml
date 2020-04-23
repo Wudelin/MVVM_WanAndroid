@@ -102,19 +102,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="110dp"
+            android:layout_marginBottom="40dp"
             android:gravity="center"
             android:text="@string/app_login_others"
-            app:layout_constraintTop_toBottomOf="@id/wtv" />
+            app:layout_constraintBottom_toTopOf="@id/iv_wechat" />
 
         <ImageView
+            android:id="@+id/iv_wechat"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginTop="31dp"
+            android:layout_marginBottom="@dimen/dp_40"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_wechat"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv" />
+            app:layout_constraintRight_toRightOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

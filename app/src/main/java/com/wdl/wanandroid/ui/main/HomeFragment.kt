@@ -19,13 +19,10 @@ import com.wdl.wanandroid.bean.BannerData
 import com.wdl.wanandroid.bean.TabBean
 import com.wdl.wanandroid.databinding.FragmentHomeBinding
 import com.wdl.wanandroid.db.bean.HomeArticleDetail
-import com.wdl.wanandroid.repository.HomeLocalDataSource
-import com.wdl.wanandroid.repository.HomeRemoteDataSource
 import com.wdl.wanandroid.repository.HomeRepository
 import com.wdl.wanandroid.transformer.ScaleInTransformer
 import com.wdl.wanandroid.utils.dp2px
 import com.wdl.wanandroid.utils.removeAllAnimation
-import com.wdl.wanandroid.utils.toast
 import com.wdl.wanandroid.viewmodel.HomeViewModel
 import com.wdl.wanandroid.vmfactory.HomeModelFactory
 import com.youth.banner.indicator.CircleIndicator
@@ -55,10 +52,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private val homeViewModel: HomeViewModel by lazy {
         ViewModelProvider(
             this, HomeModelFactory(
-                HomeRepository(
-                    HomeLocalDataSource(),
-                    HomeRemoteDataSource()
-                )
+                HomeRepository()
             )
         ).get(HomeViewModel::class.java)
     }

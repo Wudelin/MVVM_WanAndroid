@@ -9,6 +9,8 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.wdl.wanandroid.utils.getGlobalViewModel
+import com.wdl.wanandroid.viewmodel.GlobalViewModel
 import com.wdl.wanandroid.widget.TitleBar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
@@ -20,6 +22,8 @@ import kotlinx.coroutines.cancel
 abstract class BaseFragment<VB : ViewDataBinding> : Fragment(), CoroutineScope by MainScope() {
 
     protected var mBinding: VB? = null
+
+    val appViewModel: GlobalViewModel by lazy { getGlobalViewModel() }
 
     protected var mBack: TitleBar.OnBackListener? = object : TitleBar.OnBackListener {
         override fun onBack(v: View) {

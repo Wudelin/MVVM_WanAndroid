@@ -3,24 +3,19 @@ package com.wdl.wanandroid.repository
 import androidx.annotation.WorkerThread
 import androidx.paging.DataSource
 import androidx.room.withTransaction
-import com.wdl.wanandroid.base.Results
-import com.wdl.wanandroid.bean.HomeArticleRes
 import com.wdl.wanandroid.db.AppDataBase
 import com.wdl.wanandroid.db.bean.HomeArticleDetail
 import com.wdl.wanandroid.remote.net.RetrofitManager
 import com.wdl.wanandroid.remote.net.WanApi
-import com.wdl.wanandroid.utils.WLogger
-import com.wdl.wanandroid.utils.process
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.Response
 
 /**
  * Create by: wdl at 2020/4/10 17:15
  */
 class HomeRepository(
-    private val localDataSource: HomeLocalDataSource,
-    private val remoteDataSource: HomeRemoteDataSource
+    private val localDataSource: HomeLocalDataSource = HomeLocalDataSource(),
+    private val remoteDataSource: HomeRemoteDataSource = HomeRemoteDataSource()
 ) {
 
     /**

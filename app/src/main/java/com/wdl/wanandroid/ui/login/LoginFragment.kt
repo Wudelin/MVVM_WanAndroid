@@ -65,6 +65,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         val password = mBinding?.etPwd?.text.toString()
         if (username.isEmpty() || password.isEmpty()) return
         loginViewModel.login(username, password, {
+            appViewModel.userInfo.value = it
             // 登录成功
             Navigation.findNavController(view)
                 .navigateUp()

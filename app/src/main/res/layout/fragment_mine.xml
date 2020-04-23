@@ -5,6 +5,13 @@
 
     <data>
 
+        <variable
+            name="holder"
+            type="com.wdl.wanandroid.ui.main.MineFragment" />
+
+        <variable
+            name="global"
+            type="com.wdl.wanandroid.viewmodel.GlobalViewModel" />
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -30,7 +37,11 @@
                     android:layout_width="72dp"
                     android:layout_height="72dp"
                     android:layout_marginStart="15dp"
-                    android:src="@mipmap/app_logo"
+                    android:onClick="@{holder::onClick}"
+                    android:src="@drawable/ic_avatar"
+                    app:civ_border_color="@color/white"
+                    app:civ_border_width="2dp"
+                    app:civ_circle_background_color="@color/white"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,7 +50,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
-                    android:text="请先登录~~"
+                    android:onClick="@{holder::onClick}"
+                    android:text="@{global.userInfo.username??`请先登录~~`}"
                     android:textColor="@color/white"
                     android:textSize="18dp"
                     android:textStyle="bold"
@@ -82,6 +94,7 @@
                         android:layout_height="50dp"
                         android:background="?attr/selectableItemBackground"
                         android:gravity="center_vertical"
+                        android:onClick="@{holder::onClick}"
                         android:orientation="horizontal"
                         android:paddingLeft="16dp"
                         android:paddingRight="16dp">
@@ -131,6 +144,7 @@
                         android:layout_height="50dp"
                         android:background="?attr/selectableItemBackground"
                         android:gravity="center_vertical"
+                        android:onClick="@{holder::onClick}"
                         android:orientation="horizontal"
                         android:paddingLeft="16dp"
                         android:paddingRight="16dp">
@@ -162,6 +176,7 @@
                         android:layout_height="50dp"
                         android:background="?attr/selectableItemBackground"
                         android:gravity="center_vertical"
+                        android:onClick="@{holder::onClick}"
                         android:orientation="horizontal"
                         android:paddingLeft="16dp"
                         android:paddingRight="16dp">
@@ -198,6 +213,7 @@
                         android:layout_height="50dp"
                         android:background="?attr/selectableItemBackground"
                         android:gravity="center_vertical"
+                        android:onClick="@{holder::onClick}"
                         android:orientation="horizontal"
                         android:paddingLeft="16dp"
                         android:paddingRight="16dp">
@@ -229,6 +245,7 @@
                         android:layout_height="50dp"
                         android:background="?attr/selectableItemBackground"
                         android:gravity="center_vertical"
+                        android:onClick="@{holder::onClick}"
                         android:orientation="horizontal"
                         android:paddingLeft="16dp"
                         android:paddingRight="16dp">

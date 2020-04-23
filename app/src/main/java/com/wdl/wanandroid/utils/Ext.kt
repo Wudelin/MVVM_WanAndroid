@@ -14,8 +14,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
 import com.wdl.module_aac.navigation.NavHostFragment
+import com.wdl.wanandroid.App
 import com.wdl.wanandroid.base.BaseResponse
 import com.wdl.wanandroid.base.Results
+import com.wdl.wanandroid.viewmodel.GlobalViewModel
 import kotlinx.coroutines.*
 import retrofit2.Response
 import java.io.IOException
@@ -119,7 +121,6 @@ fun <T> BaseResponse<T>.parse(): Results<T> =
     }
 
 
-
 @Suppress("UNCHECKED_CAST")
 fun <F : Fragment> AppCompatActivity.getFragment(fragmentClass: Class<F>): F? {
     val navHostFragment = this.supportFragmentManager.fragments.first() as NavHostFragment
@@ -133,9 +134,16 @@ fun <F : Fragment> AppCompatActivity.getFragment(fragmentClass: Class<F>): F? {
     return null
 }
 
-fun Window.dark(alpha:Float){
+fun Window.dark(alpha: Float) {
     val attr = attributes
     attr.alpha = alpha
     addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
     attributes = attr
 }
+
+fun AppCompatActivity.getGlobalViewModel() =
+    (App.app as App).getAppModelProvider().get(GlobalViewModel::class.java)
+
+fun Fragment.getGlobalViewModel() =
+    (App.app as App).getAppModelProvider().get(GlobalViewModel::class.java)
+

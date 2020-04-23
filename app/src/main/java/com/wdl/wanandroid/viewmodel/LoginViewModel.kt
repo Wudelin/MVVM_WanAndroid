@@ -10,8 +10,7 @@ import com.wdl.wanandroid.base.USER_ID
 import com.wdl.wanandroid.base.USER_NAME
 import com.wdl.wanandroid.bean.UserInfo
 import com.wdl.wanandroid.repository.LoginRepository
-import com.wdl.wanandroid.utils.MMKVUtil
-import com.wdl.wanandroid.utils.process
+import com.wdl.wanandroid.utils.*
 import kotlinx.coroutines.launch
 import okhttp3.Headers
 
@@ -23,22 +22,25 @@ class LoginViewModel(private val repository: LoginRepository) : ViewModel() {
     var mPwd = MutableLiveData("")
     var mUserName = MutableLiveData("")
 
-    fun login(user: String, pwd: String, success: () -> Unit, fail: (String?) -> Unit) {
-        viewModelScope.launch {
-            val result = repository.login(user, pwd)
+    fun login(user: String, pwd: String, success: (UserInfo) -> Unit, fail: (String?) -> Unit) {
+        viewModelScope.safeLaunch {
+            block = {
+                val result = repository.login(user, pwd)
+                when (result.process()) {
+                    is Results.Success -> {
+                        when (val data = result.body()!!.parse()) {
+                            is Results.Success -> {
+                                // 登录成功保存用户相关信息 保存Cookie
+                                saveUserInfo(data.data)
+                                saveHeaders(result.headers())
+                                success(data.data)
+                            }
+                            is Results.Failure -> fail((data.error as Errors.NetworkError).desc)
+                        }
 
-            when (val body = result.process()) {
-                is Results.Success -> {
-                    if (body.data.errorCode == 0) {
-                        // 登录成功保存用户相关信息 保存Cookie
-                        saveUserInfo(body.data.data)
-                        saveHeaders(result.headers())
-                        success()
-                    } else {
-                        fail(body.data.errorMsg)
                     }
+                    is Results.Failure -> fail(result.message())
                 }
-                is Results.Failure -> fail(body.error.message)
             }
         }
     }
@@ -62,9 +64,6 @@ class LoginViewModel(private val repository: LoginRepository) : ViewModel() {
         MMKVUtil.put(USER_COOKIE, cookie)
     }
 
-    private fun saveUserInfo(data: UserInfo) {
-        MMKVUtil.put(USER_NAME, data.username)
-        MMKVUtil.put(USER_ID, data.id)
-    }
+    private fun saveUserInfo(data: UserInfo) = CacheUtil.saveUserInfo(data)
 
 }

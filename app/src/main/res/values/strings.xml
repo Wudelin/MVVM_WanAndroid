@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MVVM_WanAndroid</string>
+    <string name="app_name">WanAndroid</string>
 
     <string name="app_nav_home">首页</string>
     <string name="app_nav_project">项目</string>
@@ -14,6 +14,5 @@
     <string name="app_register">注册</string>
     <string name="app_login_others">------------ 第三方登录 ------------</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

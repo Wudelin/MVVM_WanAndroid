@@ -4,6 +4,9 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.wdl.wanandroid.App
 import com.wdl.wanandroid.adapter.ImgBannerAdapter
 import com.wdl.wanandroid.adapter.TabAdapter
 import com.wdl.wanandroid.bean.BannerData
@@ -41,10 +44,26 @@ fun bindRefresh(
     view.setOnRefreshListener(listener)
 }
 
-@BindingAdapter(value = [ "refreshEnable"])
+@BindingAdapter(value = ["refreshEnable"])
 fun bindRefreshEnable(
     view: SwipeRefreshLayout,
     refreshStatus: Boolean
 ) {
     view.isRefreshing = refreshStatus
+}
+
+@BindingAdapter(value = ["url"])
+fun imageSrc(view: ImageView, url: String?) {
+    Glide.with(view)
+        .load(url)
+        .apply(RequestOptions.circleCropTransform())
+        .into(view)
+}
+
+@BindingAdapter(value = ["resId"])
+fun imageSrc(view: ImageView, resId: Int) {
+    Glide.with(App.app)
+        .load(resId)
+        .apply(RequestOptions.circleCropTransform())
+        .into(view)
 }

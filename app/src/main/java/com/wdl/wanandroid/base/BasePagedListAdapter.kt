@@ -10,7 +10,6 @@ import androidx.paging.AsyncPagedListDiffer
 import androidx.paging.PagedList
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import com.wdl.wanandroid.utils.WLogger
 
 /**
  * Create by: wdl at 2020/4/16 9:18
@@ -81,7 +80,6 @@ abstract class BaseNoBlinkAdapter<T, VB : ViewDataBinding>(cb: DiffUtil.ItemCall
         pagedList?.addWeakCallback(pagedList.snapshot(), object : BasePagedListCallback() {
             override fun onInserted(position: Int, count: Int) {
                 mDiffer?.submitList(pagedList) {
-                    WLogger.e("")
                 }
             }
         })

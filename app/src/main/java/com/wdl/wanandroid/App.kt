@@ -2,12 +2,13 @@ package com.wdl.wanandroid
 
 import android.app.Application
 import android.content.Context
-import com.tencent.bugly.Bugly
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStore
+import androidx.lifecycle.ViewModelStoreOwner
 import com.tencent.bugly.crashreport.CrashReport
 import com.tencent.mmkv.MMKV
 import com.tencent.smtt.sdk.QbSdk
 import com.wdl.wanandroid.base.BUG_LY_APP_ID
-import com.wdl.wanandroid.base.BUG_LY_APP_KEY
 import com.wdl.wanandroid.utils.WLogger
 import java.nio.charset.Charset
 import java.util.LinkedHashMap
@@ -15,10 +16,34 @@ import java.util.LinkedHashMap
 /**
  * Create by: wdl at 2020/4/9 17:36
  */
-class App : Application() {
+class App : Application(), ViewModelStoreOwner {
+
+    lateinit var mAppViewModelStore: ViewModelStore
+
+    private var mFactory: ViewModelProvider.Factory? = null
+
+    override fun getViewModelStore(): ViewModelStore {
+        return mAppViewModelStore
+    }
+
+    fun getAppModelProvider(): ViewModelProvider {
+        return ViewModelProvider(this, getAppFactory())
+    }
+
+    fun getAppFactory(): ViewModelProvider.Factory {
+        if (mFactory == null) {
+            mFactory = ViewModelProvider.AndroidViewModelFactory.getInstance(this)
+        }
+        return mFactory as ViewModelProvider.Factory
+    }
+
+
     override fun onCreate() {
         super.onCreate()
         app = applicationContext
+
+        mAppViewModelStore = ViewModelStore()
+
         WLogger.setIsDebug(BuildConfig.DEBUG)
         val root = MMKV.initialize(this)
         WLogger.e(root)
@@ -82,4 +107,6 @@ class App : Application() {
     companion object {
         lateinit var app: Context
     }
+
+
 }

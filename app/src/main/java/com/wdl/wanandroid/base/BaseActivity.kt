@@ -18,6 +18,8 @@ import com.wdl.wanandroid.ui.MainFragment
 import com.wdl.wanandroid.utils.ActivityStackManager
 import com.wdl.wanandroid.utils.BarUtils
 import com.wdl.wanandroid.utils.getFragment
+import com.wdl.wanandroid.utils.getGlobalViewModel
+import com.wdl.wanandroid.viewmodel.GlobalViewModel
 import com.wdl.wanandroid.widget.TitleBar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
@@ -31,6 +33,8 @@ import me.jessyan.autosize.AutoSizeCompat
  */
 abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity(),
     CoroutineScope by MainScope() {
+
+    val appViewModel: GlobalViewModel by lazy { getGlobalViewModel() }
 
     protected var mBack: TitleBar.OnBackListener? = object : TitleBar.OnBackListener {
         override fun onBack(v: View) {

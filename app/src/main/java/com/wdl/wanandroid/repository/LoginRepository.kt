@@ -1,9 +1,7 @@
 package com.wdl.wanandroid.repository
 
-import com.wdl.wanandroid.base.Results
-import com.wdl.wanandroid.bean.LoginRes
+
 import com.wdl.wanandroid.remote.net.RetrofitManager
-import com.wdl.wanandroid.utils.process
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

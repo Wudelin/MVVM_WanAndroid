@@ -4,7 +4,8 @@ package com.wdl.wanandroid.bean
  * Create by: wdl at 2020/4/13 16:13
  */
 
-//{
+data class BannerData(
+    //{
 //    "desc": "",
 //    "id": 20,
 //    "imagePath": "https://www.wanandroid.com/blogimgs/90c6cc12-742e-4c9f-b318-b912f163b8d0.png",
@@ -14,7 +15,6 @@ package com.wdl.wanandroid.bean
 //    "type": 1,
 //    "url": "https://flutter.cn/"
 //}
-data class BannerData(
     val desc: String?,
     val id: Int,
     val imagePath: String?,

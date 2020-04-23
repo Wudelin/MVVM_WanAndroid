@@ -5,16 +5,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wdl.wanandroid.base.Results
 import com.wdl.wanandroid.repository.RegisterRepository
-import kotlinx.coroutines.launch
+import com.wdl.wanandroid.utils.parse
+import com.wdl.wanandroid.utils.safeLaunch
 
 /**
  * Create by: wdl at 2020/4/13 14:48
  */
 class RegisterViewModel(private val repository: RegisterRepository) : ViewModel() {
+
     var mUser: MutableLiveData<String> = MutableLiveData("")
     var mPwd: MutableLiveData<String> = MutableLiveData("")
     var mRePwd: MutableLiveData<String> = MutableLiveData("")
-
 
     fun register(
         username: String,
@@ -24,16 +25,13 @@ class RegisterViewModel(private val repository: RegisterRepository) : ViewModel(
         failure: (String?) -> Unit
     ) {
         if (password == rePassword) {
-            viewModelScope.launch {
-                when (val result = repository.register(username, password, rePassword)) {
-                    is Results.Success -> {
-                        if (result.data.errorCode == 0) {
-                            success()
-                        } else {
-                            failure(result.data.errorMsg)
-                        }
+            viewModelScope.safeLaunch {
+                block = {
+                    when (val result =
+                        repository.register(username, password, rePassword).parse()) {
+                        is Results.Success -> success()
+                        is Results.Failure -> failure(result.error.message)
                     }
-                    is Results.Failure -> failure(result.error.message)
                 }
             }
 

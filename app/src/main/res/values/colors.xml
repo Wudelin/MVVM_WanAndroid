@@ -11,5 +11,8 @@
     <color name="colorBlack333">#333</color>
     <color name="colorBlack999">#999</color>
 
+    <color name="icActive">#FFFFFFFF</color>
+    <color name="icFocused">#DDFFFFFF</color>
+    <color name="icPressed">#AAFFFFFF</color>
 
 </resources>

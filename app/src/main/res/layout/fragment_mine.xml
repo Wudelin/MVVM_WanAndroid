@@ -12,10 +12,20 @@
         <variable
             name="global"
             type="com.wdl.wanandroid.viewmodel.GlobalViewModel" />
+
+        <variable
+            name="mine"
+            type="com.wdl.wanandroid.viewmodel.MineViewModel" />
+
+        <variable
+            name="refreshListener"
+            type="androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener" />
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/sfl"
+        onListener="@{refreshListener}"
+        refreshStatus="@{mine.isRefresh}"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -65,7 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
-                    android:text="id：~~ 排名：~~"
+                    android:text="@{`id：`+mine.id+` 排名：`+mine.rank}"
                     android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="@id/civ"
                     app:layout_constraintLeft_toRightOf="@id/civ"
@@ -127,6 +137,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="8dp"
+                            android:text="@{String.valueOf(mine.count)}"
                             android:textColor="@color/colorPrimary"
                             android:textSize="15dp"
                             android:textStyle="bold"

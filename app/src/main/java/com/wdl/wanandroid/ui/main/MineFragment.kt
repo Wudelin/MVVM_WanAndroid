@@ -9,14 +9,19 @@ import android.provider.MediaStore
 import android.view.*
 import android.widget.PopupWindow
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.wdl.wanandroid.R
 import com.wdl.wanandroid.base.BaseFragment
 import com.wdl.wanandroid.base.OPEN_ALBUM
 import com.wdl.wanandroid.databinding.AppPopupLayoutBinding
 import com.wdl.wanandroid.databinding.FragmentMineBinding
+import com.wdl.wanandroid.repository.MineRepository
 import com.wdl.wanandroid.utils.*
 import com.wdl.wanandroid.viewmodel.GlobalViewModel
+import com.wdl.wanandroid.viewmodel.MineViewModel
+import com.wdl.wanandroid.vmfactory.MineModelFactory
 import java.io.File
 
 
@@ -31,10 +36,20 @@ import java.io.File
  */
 class MineFragment : BaseFragment<FragmentMineBinding>() {
 
+    private val mMineViewModel: MineViewModel by lazy {
+        ViewModelProvider(this, MineModelFactory(MineRepository())).get(MineViewModel::class.java)
+    }
+
     private var mPopWindow: PopupWindow? = null
 
     private val mGlobalViewModel: GlobalViewModel by lazy {
         getGlobalViewModel()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (CacheUtil.isLogin())
+            mMineViewModel.getRankOrRefresh()
     }
 
     override fun initView(view: View, savedInstanceState: Bundle?) {
@@ -42,6 +57,11 @@ class MineFragment : BaseFragment<FragmentMineBinding>() {
         mBinding?.apply {
             holder = this@MineFragment
             global = mGlobalViewModel
+            mine = mMineViewModel
+            refreshListener = SwipeRefreshLayout.OnRefreshListener {
+                if (CacheUtil.isLogin())
+                    mMineViewModel.getRankOrRefresh()
+            }
         }
     }
 

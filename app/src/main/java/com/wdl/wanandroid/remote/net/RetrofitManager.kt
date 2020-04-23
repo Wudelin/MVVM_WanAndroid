@@ -1,6 +1,8 @@
 package com.wdl.wanandroid.remote.net
 
 import com.wdl.wanandroid.base.BASE_URL
+import com.wdl.wanandroid.remote.net.interceptor.ReadCookiesInterceptor
+import com.wdl.wanandroid.remote.net.interceptor.SaveCookiesInterceptor
 import com.wdl.wanandroid.utils.WLogger
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -34,6 +36,8 @@ object RetrofitManager {
         httpInterceptor.level = HttpLoggingInterceptor.Level.BODY
         return OkHttpClient.Builder()
             .addInterceptor(httpInterceptor)
+            .addInterceptor(ReadCookiesInterceptor())
+            .addInterceptor(SaveCookiesInterceptor())
             .connectTimeout(5_000L, TIME_UNIT)
             .readTimeout(10_000, TIME_UNIT)
             .writeTimeout(30_000, TIME_UNIT)

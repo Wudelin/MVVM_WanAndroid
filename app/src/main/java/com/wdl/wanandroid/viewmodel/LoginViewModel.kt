@@ -4,14 +4,10 @@ import android.text.TextUtils
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.wdl.wanandroid.base.Results
-import com.wdl.wanandroid.base.USER_COOKIE
-import com.wdl.wanandroid.base.USER_ID
-import com.wdl.wanandroid.base.USER_NAME
+import com.wdl.wanandroid.base.*
 import com.wdl.wanandroid.bean.UserInfo
 import com.wdl.wanandroid.repository.LoginRepository
 import com.wdl.wanandroid.utils.*
-import kotlinx.coroutines.launch
 import okhttp3.Headers
 
 /**

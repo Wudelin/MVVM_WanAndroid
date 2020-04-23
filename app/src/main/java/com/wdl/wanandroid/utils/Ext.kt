@@ -9,20 +9,18 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
 import com.wdl.module_aac.navigation.NavHostFragment
 import com.wdl.wanandroid.App
 import com.wdl.wanandroid.base.BaseResponse
+import com.wdl.wanandroid.base.Errors
 import com.wdl.wanandroid.base.Results
 import com.wdl.wanandroid.viewmodel.GlobalViewModel
 import kotlinx.coroutines.*
 import retrofit2.Response
 import java.io.IOException
-import java.lang.Error
-import java.lang.Exception
 
 /**
  * Create by: wdl at 2020/4/13 11:30

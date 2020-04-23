@@ -3,6 +3,7 @@ package com.wdl.wanandroid.remote.net
 import com.wdl.wanandroid.base.PagerResponse
 import com.wdl.wanandroid.base.WanResponse
 import com.wdl.wanandroid.bean.BannerData
+import com.wdl.wanandroid.bean.MineInfo
 import com.wdl.wanandroid.bean.UserInfo
 import com.wdl.wanandroid.db.bean.HomeArticleDetail
 import okhttp3.ResponseBody
@@ -62,7 +63,19 @@ interface WanApi {
     @GET("/article/top/json")
     suspend fun top(): WanResponse<List<HomeArticleDetail>>
 
+    /**
+     * 下载图片
+     */
     @GET
     @Streaming
     fun downloadImg(@Url imageUrl: String): Call<ResponseBody>
+
+
+    /**
+     * 获取个人积分/排名
+     */
+    @GET("/lg/coin/userinfo/json")
+    suspend fun getRank(): WanResponse<MineInfo>
+
+
 }

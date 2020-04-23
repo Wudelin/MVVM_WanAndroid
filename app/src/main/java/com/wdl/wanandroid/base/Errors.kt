@@ -1,4 +1,4 @@
-package com.wdl.wanandroid.utils
+package com.wdl.wanandroid.base
 
 sealed class Errors : Throwable() {
     data class NetworkError(val code: Int = -1, val desc: String = "") : Errors()

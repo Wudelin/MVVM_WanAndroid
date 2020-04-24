@@ -192,15 +192,16 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>() {
                                     Intent(android.hardware.Camera.ACTION_NEW_PICTURE, savedUri)
                                 )
                             }
-
-                            // 插入图库
-                            val mimeType = MimeTypeMap.getSingleton()
-                                .getMimeTypeFromExtension(savedUri.toFile().extension)
-                            MediaScannerConnection.scanFile(
-                                context, arrayOf(savedUri.toString()),
-                                arrayOf(mimeType)
-                            ) { _, uri ->
-                                WLogger.e("Image capture scanned into media store: $uri")
+                            lifecycleScope.launch(Dispatchers.IO) {
+                                // 插入图库
+                                val mimeType = MimeTypeMap.getSingleton()
+                                    .getMimeTypeFromExtension(savedUri.toFile().extension)
+                                MediaScannerConnection.scanFile(
+                                    requireContext(), arrayOf(savedUri.toString()),
+                                    arrayOf(mimeType)
+                                ) { _, uri ->
+                                    WLogger.e("Image capture scanned into media store: $uri")
+                                }
                             }
 
                             Navigation.findNavController(

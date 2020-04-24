@@ -37,18 +37,36 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment(), CoroutineScope b
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         // 非中断保存，不会随着Activity销毁而销毁
         retainInstance = true
         mBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
         mBinding?.lifecycleOwner = this
         return mBinding!!.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (isBackPress()) onBackPress(view)
+
         initView(view, savedInstanceState)
+    }
+
+    open fun isBackPress(): Boolean = true
+
+    /**
+     * 对home键 事件进行拦截
+     */
+    private fun onBackPress(view: View) {
+        view.isFocusableInTouchMode = true
+        view.requestFocus()
+        view.setOnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK && event!!.action == KeyEvent.ACTION_UP) {
+                Navigation.findNavController(v!!).navigateUp()
+                true
+            } else
+                false
+        }
     }
 
     override fun onDestroyView() {

@@ -40,6 +40,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         }
     }
 
+    override fun isBackPress(): Boolean = false
+
     override fun initView(view: View, savedInstanceState: Bundle?) {
         mBinding?.apply {
             vp2.apply {

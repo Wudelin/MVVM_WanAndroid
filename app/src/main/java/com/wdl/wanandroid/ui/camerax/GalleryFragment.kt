@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.webkit.MimeTypeMap
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
@@ -16,6 +17,8 @@ import com.wdl.wanandroid.databinding.FragmentGalleryBinding
 import com.wdl.wanandroid.utils.FileProvider7
 import com.wdl.wanandroid.utils.getGlobalViewModel
 import com.wdl.wanandroid.utils.showImmersive
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.File
 
 /**
@@ -56,19 +59,22 @@ class GalleryFragment : BaseFragment<FragmentGalleryBinding>() {
                 startActivity(Intent.createChooser(intent, getString(R.string.share_hint)))
             }
             R.id.ib_delete -> {
-                AlertDialog.Builder(view.context, android.R.style.Theme_Material_Dialog)
+                AlertDialog.Builder(requireContext(), android.R.style.Theme_Material_Dialog)
                     .setTitle(getString(R.string.delete_title))
                     .setMessage(getString(R.string.delete_dialog))
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setPositiveButton(android.R.string.yes) { _, _ ->
 
-                        // Delete current photo
-                        photo.delete()
+                        lifecycleScope.launch(Dispatchers.IO){
+                            // Delete current photo
+                            photo.delete()
 
-                        // Send relevant broadcast to notify other apps of deletion
-                        MediaScannerConnection.scanFile(
-                            view.context, arrayOf(photo.absolutePath), null, null
-                        )
+                            // Send relevant broadcast to notify other apps of deletion
+                            MediaScannerConnection.scanFile(
+                                requireContext(), arrayOf(photo.absolutePath), null, null
+                            )
+                        }
+
 
                         Navigation.findNavController(
                             requireActivity(),
@@ -90,5 +96,10 @@ class GalleryFragment : BaseFragment<FragmentGalleryBinding>() {
             else -> {
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
     }
 }

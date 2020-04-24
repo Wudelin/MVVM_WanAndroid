@@ -46,10 +46,10 @@
         android:name="com.wdl.wanandroid.ui.camerax.CameraFragment"
         android:label="CameraFragment">
         <action
-            app:popUpTo="@id/main_fragment"
-            app:popUpToInclusive="false"
             android:id="@+id/action_cameraFragment_to_galleryFragment"
-            app:destination="@id/galleryFragment" />
+            app:destination="@id/galleryFragment"
+            app:popUpTo="@id/main_fragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/galleryFragment"
@@ -58,7 +58,7 @@
         <argument
             android:name="PREVIEW_PATH"
             app:argType="string" />
-</fragment>
+    </fragment>
 
 
 </navigation>

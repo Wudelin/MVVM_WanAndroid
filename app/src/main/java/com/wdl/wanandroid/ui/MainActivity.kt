@@ -3,6 +3,7 @@ package com.wdl.wanandroid.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.wdl.module_aac.navigation.NavHostFragment
@@ -13,6 +14,9 @@ import com.wdl.wanandroid.utils.toast
 import java.io.File
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
+
+    private var pressTime: Long = 0L
+    val times: Long = 2000L
 
     val host: NavHostFragment by lazy {
         supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment
@@ -66,15 +70,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         return Navigation.findNavController(this, R.id.wan_nav).navigateUp()
     }
 
-
-    private var pressTime: Long = 0L
-    val times: Long = 2000L
     override fun onBackPressed() {
         if (pressTime + times > System.currentTimeMillis()) {
             super.onBackPressed()
             return
         } else {
-            toast("再按一次退出~~~")
+            applicationContext.toast("再按一次退出APP~~")
             pressTime = System.currentTimeMillis()
         }
     }

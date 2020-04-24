@@ -7,6 +7,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.wdl.wanandroid.App
+import com.wdl.wanandroid.R
 import com.wdl.wanandroid.adapter.ImgBannerAdapter
 import com.wdl.wanandroid.adapter.TabAdapter
 import com.wdl.wanandroid.bean.BannerData
@@ -52,12 +53,17 @@ fun bindRefreshEnable(
     view.isRefreshing = refreshStatus
 }
 
-@BindingAdapter(value = ["url"])
-fun imageSrc(view: ImageView, url: String?) {
-    Glide.with(view)
-        .load(url)
-        .apply(RequestOptions.circleCropTransform())
-        .into(view)
+@BindingAdapter(value = ["imgUrl"])
+fun imgUrl(view: ImageView, url: String?) {
+    if (url.isNullOrEmpty()) {
+        Glide.with(view)
+            .load(R.drawable.ic_avatar)
+            .into(view)
+    } else {
+        Glide.with(view)
+            .load(url)
+            .into(view)
+    }
 }
 
 @BindingAdapter(value = ["resId"])

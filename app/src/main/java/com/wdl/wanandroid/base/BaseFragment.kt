@@ -1,13 +1,13 @@
 package com.wdl.wanandroid.base
 
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.wdl.wanandroid.utils.getGlobalViewModel
 import com.wdl.wanandroid.viewmodel.GlobalViewModel
@@ -68,4 +68,5 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment(), CoroutineScope b
     }
 
     abstract fun getLayoutId(): Int
+
 }

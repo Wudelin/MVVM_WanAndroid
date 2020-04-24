@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.wdl.wanandroid.R
 import com.wdl.wanandroid.adapter.ArticleAdapter
@@ -44,7 +43,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             data = mutableListOf(
                 TabBean("常用网址", R.drawable.ic_net),
                 TabBean("导航", R.drawable.ic_nav),
-                TabBean("分享文章", R.drawable.ic_share)
+                TabBean("分享文章", R.drawable.ic_share_hone)
             )
         }
     }

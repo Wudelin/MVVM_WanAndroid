@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_main_fragment_to_webFragment"
             app:destination="@id/webFragment" />
+        <action
+            android:id="@+id/action_main_fragment_to_cameraFragment"
+            app:destination="@id/cameraFragment" />
     </fragment>
 
     <fragment
@@ -38,6 +41,24 @@
             android:name="WEB_URL"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.wdl.wanandroid.ui.camerax.CameraFragment"
+        android:label="CameraFragment">
+        <action
+            app:popUpTo="@id/main_fragment"
+            app:popUpToInclusive="false"
+            android:id="@+id/action_cameraFragment_to_galleryFragment"
+            app:destination="@id/galleryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/galleryFragment"
+        android:name="com.wdl.wanandroid.ui.camerax.GalleryFragment"
+        android:label="GalleryFragment">
+        <argument
+            android:name="PREVIEW_PATH"
+            app:argType="string" />
+</fragment>
 
 
 </navigation>

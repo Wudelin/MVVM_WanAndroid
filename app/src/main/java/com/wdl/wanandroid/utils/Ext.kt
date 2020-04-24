@@ -4,13 +4,17 @@ import android.content.Context
 import android.content.res.Resources
 import android.text.TextUtils
 import android.util.TypedValue
+import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.wdl.module_aac.navigation.NavHostFragment
 import com.wdl.wanandroid.App
@@ -21,6 +25,7 @@ import com.wdl.wanandroid.viewmodel.GlobalViewModel
 import kotlinx.coroutines.*
 import retrofit2.Response
 import java.io.IOException
+import java.util.*
 
 /**
  * Create by: wdl at 2020/4/13 11:30
@@ -145,3 +150,29 @@ fun AppCompatActivity.getGlobalViewModel() =
 fun Fragment.getGlobalViewModel() =
     (App.app as App).getAppModelProvider().get(GlobalViewModel::class.java)
 
+
+/** Same as [AlertDialog.show] but setting immersive mode in the dialog's window */
+fun AlertDialog.showImmersive() {
+    // Set the dialog to not focusable
+    window?.setFlags(
+        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE)
+
+    // Make sure that the dialog's window is in full screen
+    window?.decorView?.systemUiVisibility = FLAGS_FULLSCREEN
+
+    // Show the dialog while still in immersive mode
+    show()
+
+    // Set the dialog to focusable again
+    window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE)
+}
+
+/** Combination of all flags required to put activity into immersive mode */
+const val FLAGS_FULLSCREEN =
+    View.SYSTEM_UI_FLAG_LOW_PROFILE or
+            View.SYSTEM_UI_FLAG_FULLSCREEN or
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+            View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
+            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
+            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION

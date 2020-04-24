@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="holder"
+            type="com.wdl.wanandroid.ui.camerax.GalleryFragment" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cutout_safe_area"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black">
+
+        <ImageView
+            android:id="@+id/iv_preview"
+            tools:src="@mipmap/app_logo"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <ImageButton
+            android:id="@+id/ib_back"
+            android:onClick="@{holder::onAction}"
+            android:layout_width="@dimen/round_button_small"
+            android:layout_height="@dimen/round_button_small"
+            android:layout_marginStart="@dimen/margin_xsmall"
+            android:layout_marginTop="@dimen/margin_small"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/back_button_alt"
+            android:scaleType="fitCenter"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_back_camera" />
+
+        <ImageButton
+            android:id="@+id/ib_share"
+            android:onClick="@{holder::onAction}"
+            android:layout_width="@dimen/round_button_small"
+            android:layout_height="@dimen/round_button_small"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/share_button_alt"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/ib_delete"
+            app:srcCompat="@drawable/ic_share" />
+
+        <ImageButton
+            android:onClick="@{holder::onAction}"
+            android:id="@+id/ib_delete"
+            android:layout_width="@dimen/round_button_small"
+            android:layout_height="@dimen/round_button_small"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/delete_button_alt"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/ib_share"
+            app:layout_constraintRight_toLeftOf="@id/ib_confirm"
+            app:srcCompat="@drawable/ic_delete" />
+
+        <ImageButton
+            android:onClick="@{holder::onAction}"
+            android:id="@+id/ib_confirm"
+            android:layout_width="@dimen/round_button_small"
+            android:layout_height="@dimen/round_button_small"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/delete_button_alt"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/ib_delete"
+            app:layout_constraintRight_toRightOf="parent"
+            app:srcCompat="@drawable/ic_confirm" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

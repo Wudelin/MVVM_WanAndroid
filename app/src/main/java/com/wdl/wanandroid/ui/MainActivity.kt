@@ -3,21 +3,36 @@ package com.wdl.wanandroid.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.SystemClock
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.NavHostFragment
-import com.tencent.bugly.crashreport.CrashReport
+import com.wdl.module_aac.navigation.NavHostFragment
 import com.wdl.wanandroid.R
 import com.wdl.wanandroid.base.BaseActivity
 import com.wdl.wanandroid.databinding.ActivityMainBinding
 import com.wdl.wanandroid.utils.toast
+import java.io.File
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
+
+    val host: NavHostFragment by lazy {
+        supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment
+    }
+
 
     companion object {
         fun show(context: Context) =
             context.startActivity(Intent(context, MainActivity::class.java))
+
+        /** Use external media if it is available, our app's file directory otherwise */
+        fun getOutputDirectory(context: Context): File {
+            val appContext = context.applicationContext
+            val mediaDir = context.externalMediaDirs.firstOrNull()?.let {
+                File(it, appContext.resources.getString(R.string.app_name)).apply { mkdirs() }
+            }
+            return if (mediaDir != null && mediaDir.exists())
+                mediaDir else appContext.filesDir
+        }
+
     }
 
     override fun getLayoutId(): Int = R.layout.activity_main
@@ -25,9 +40,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
 
 //        CrashReport.testJavaCrash()
-//        val host: NavHostFragment =
-//            supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment?
-//                ?: return
 
 //        // 获取控制器
 //        val navController = host.navController

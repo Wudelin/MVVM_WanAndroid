@@ -36,6 +36,7 @@ import java.io.File
  */
 class MineFragment : BaseFragment<FragmentMineBinding>() {
 
+    private var isFirst = true
     private val mMineViewModel: MineViewModel by lazy {
         ViewModelProvider(this, MineModelFactory(MineRepository())).get(MineViewModel::class.java)
     }
@@ -48,8 +49,12 @@ class MineFragment : BaseFragment<FragmentMineBinding>() {
 
     override fun onResume() {
         super.onResume()
-        if (CacheUtil.isLogin())
-            mMineViewModel.getRankOrRefresh()
+        if (CacheUtil.isLogin()) {
+            if (isFirst) {
+                mMineViewModel.getRankOrRefresh()
+                isFirst = !isFirst
+            }
+        }
     }
 
     override fun initView(view: View, savedInstanceState: Bundle?) {
@@ -125,8 +130,8 @@ class MineFragment : BaseFragment<FragmentMineBinding>() {
     }
 
     fun selectCamera(view: View) {
-        // TODO 拍照选取
-        requireActivity().toast("selectCamera")
+        Navigation.findNavController(requireActivity(), R.id.fragment_container_view)
+            .navigate(R.id.action_main_fragment_to_cameraFragment)
         dismissPop()
     }
 

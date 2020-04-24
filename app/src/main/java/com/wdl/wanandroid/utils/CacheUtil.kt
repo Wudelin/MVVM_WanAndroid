@@ -14,7 +14,7 @@ object CacheUtil {
     fun getUserInfo(): UserInfo? {
         val userInfo: String = MMKVUtil.get("userInfo", "") as String
         return if (userInfo.isEmpty()) {
-            null
+            UserInfo()
         } else {
             Gson().fromJson(userInfo, UserInfo::class.java)
         }

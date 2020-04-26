@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.text.TextUtils"/>
         <variable
             name="holder"
             type="com.wdl.wanandroid.ui.main.MineFragment" />
@@ -62,7 +62,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:onClick="@{holder::onClick}"
-                    android:text="@{global.userInfo.username??`请先登录~~`}"
+                    android:text="@{TextUtils.isEmpty(global.userInfo.username)?`请先登录~~`:global.userInfo.username}"
                     android:textColor="@color/white"
                     android:textSize="18dp"
                     android:textStyle="bold"

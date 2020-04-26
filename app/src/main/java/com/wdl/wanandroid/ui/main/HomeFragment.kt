@@ -84,6 +84,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     Navigation.findNavController(view)
                         .navigate(R.id.action_main_fragment_to_webFragment, Bundle().apply {
                             putString(WEB_URL, data.url)
+                            //putString(WEB_URL, "https://call.crm.ink/")
                         })
                 }
             }

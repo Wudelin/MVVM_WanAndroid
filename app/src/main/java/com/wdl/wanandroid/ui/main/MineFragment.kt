@@ -64,8 +64,11 @@ class MineFragment : BaseFragment<FragmentMineBinding>() {
             global = mGlobalViewModel
             mine = mMineViewModel
             refreshListener = SwipeRefreshLayout.OnRefreshListener {
-                if (CacheUtil.isLogin())
+                if (CacheUtil.isLogin()) {
                     mMineViewModel.getRankOrRefresh()
+                }else{
+                    mMineViewModel.isRefresh.value = false
+                }
             }
         }
     }

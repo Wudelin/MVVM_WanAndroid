@@ -1,8 +1,8 @@
 package com.wdl.wanandroid.ui.login
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.wdl.wanandroid.R

@@ -1,8 +1,10 @@
 package com.wdl.wanandroid.db.dao
 
-import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.wdl.wanandroid.db.bean.HomeArticleDetail
 
 /**

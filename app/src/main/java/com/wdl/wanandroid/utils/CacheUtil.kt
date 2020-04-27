@@ -2,8 +2,6 @@ package com.wdl.wanandroid.utils
 
 import android.content.Context
 import android.os.Environment
-import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import com.google.gson.Gson
 import com.wdl.wanandroid.base.USER_COOKIE

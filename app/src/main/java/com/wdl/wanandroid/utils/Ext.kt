@@ -13,8 +13,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.wdl.module_aac.navigation.NavHostFragment
 import com.wdl.wanandroid.App
@@ -25,7 +23,6 @@ import com.wdl.wanandroid.viewmodel.GlobalViewModel
 import kotlinx.coroutines.*
 import retrofit2.Response
 import java.io.IOException
-import java.util.*
 
 /**
  * Create by: wdl at 2020/4/13 11:30

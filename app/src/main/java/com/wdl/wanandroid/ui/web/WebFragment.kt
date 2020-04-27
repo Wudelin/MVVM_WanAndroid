@@ -6,11 +6,11 @@ import android.view.View
 import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import com.tencent.smtt.sdk.WebView
+import com.wdl.module_base.x5web.X5WebView
 import com.wdl.wanandroid.R
 import com.wdl.wanandroid.base.BaseFragment
 import com.wdl.wanandroid.base.WEB_URL
 import com.wdl.wanandroid.databinding.FragmentWebBinding
-import com.wdl.module_base.x5web.X5WebView
 
 
 /**

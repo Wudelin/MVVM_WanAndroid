@@ -3,7 +3,6 @@ package com.wdl.wanandroid.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.wdl.module_aac.navigation.NavHostFragment

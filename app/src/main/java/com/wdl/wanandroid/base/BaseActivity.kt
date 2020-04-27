@@ -10,14 +10,10 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.wdl.module_aac.navigation.NavHostFragment
-import com.wdl.wanandroid.ui.MainFragment
 import com.wdl.wanandroid.utils.ActivityStackManager
 import com.wdl.wanandroid.utils.BarUtils
-import com.wdl.wanandroid.utils.getFragment
 import com.wdl.wanandroid.utils.getGlobalViewModel
 import com.wdl.wanandroid.viewmodel.GlobalViewModel
 import com.wdl.wanandroid.widget.TitleBar

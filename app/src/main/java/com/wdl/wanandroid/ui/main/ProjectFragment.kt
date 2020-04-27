@@ -1,9 +1,8 @@
 package com.wdl.wanandroid.ui.main
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
-
+import androidx.fragment.app.Fragment
 import com.wdl.wanandroid.R
 import com.wdl.wanandroid.base.BaseFragment
 import com.wdl.wanandroid.databinding.FragmentProjectBinding

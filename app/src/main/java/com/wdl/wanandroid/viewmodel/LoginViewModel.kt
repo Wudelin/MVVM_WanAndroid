@@ -4,10 +4,14 @@ import android.text.TextUtils
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.wdl.wanandroid.base.*
+import com.wdl.wanandroid.base.Errors
+import com.wdl.wanandroid.base.Results
 import com.wdl.wanandroid.bean.UserInfo
 import com.wdl.wanandroid.repository.LoginRepository
-import com.wdl.wanandroid.utils.*
+import com.wdl.wanandroid.utils.CacheUtil
+import com.wdl.wanandroid.utils.parse
+import com.wdl.wanandroid.utils.process
+import com.wdl.wanandroid.utils.safeLaunch
 import okhttp3.Headers
 
 /**

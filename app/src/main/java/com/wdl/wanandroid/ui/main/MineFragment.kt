@@ -4,9 +4,10 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.os.Environment
-import android.provider.MediaStore
-import android.view.*
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.PopupWindow
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -18,11 +19,13 @@ import com.wdl.wanandroid.base.OPEN_ALBUM
 import com.wdl.wanandroid.databinding.AppPopupLayoutBinding
 import com.wdl.wanandroid.databinding.FragmentMineBinding
 import com.wdl.wanandroid.repository.MineRepository
-import com.wdl.wanandroid.utils.*
+import com.wdl.wanandroid.utils.CacheUtil
+import com.wdl.wanandroid.utils.dark
+import com.wdl.wanandroid.utils.getGlobalViewModel
+import com.wdl.wanandroid.utils.toast
 import com.wdl.wanandroid.viewmodel.GlobalViewModel
 import com.wdl.wanandroid.viewmodel.MineViewModel
 import com.wdl.wanandroid.vmfactory.MineModelFactory
-import java.io.File
 
 
 /**

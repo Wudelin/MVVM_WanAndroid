@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagedList
 import androidx.work.*
-import com.wdl.module_aac.paging.toLiveDataPagedList
 import com.wdl.module_aac.paging.PagingRequestHelper
+import com.wdl.module_aac.paging.toLiveDataPagedList
 import com.wdl.wanandroid.App
 import com.wdl.wanandroid.base.Results
 import com.wdl.wanandroid.bean.BannerData

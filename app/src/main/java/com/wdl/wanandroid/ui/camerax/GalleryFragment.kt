@@ -3,10 +3,10 @@ package com.wdl.wanandroid.ui.camerax
 import android.content.Intent
 import android.media.MediaScannerConnection
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
 import android.webkit.MimeTypeMap
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs

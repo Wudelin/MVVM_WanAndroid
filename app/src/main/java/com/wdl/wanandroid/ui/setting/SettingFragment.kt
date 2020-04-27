@@ -5,19 +5,15 @@ import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.preference.CheckBoxPreference
 import androidx.preference.Preference
+import com.wdl.module_aac.preference.BasePreferenceFragment
 import com.wdl.wanandroid.R
 import com.wdl.wanandroid.utils.CacheUtil
 import com.wdl.wanandroid.utils.getGlobalViewModel
 import com.wdl.wanandroid.utils.getVersion
 import com.wdl.wanandroid.viewmodel.GlobalViewModel
-import com.wdl.module_aac.preference.BasePreferenceFragment
-import com.wdl.wanandroid.base.USER_COOKIE
-import com.wdl.wanandroid.utils.MMKVUtil
-import com.wdl.wanandroid.viewmodel.MineViewModel
 import com.wdl.wanandroid.widget.TitleBar
 
 /**

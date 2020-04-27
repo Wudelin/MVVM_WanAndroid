@@ -1,2 +1,1 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.wdl.module_aac" />
+<manifest package="com.wdl.module_aac" />

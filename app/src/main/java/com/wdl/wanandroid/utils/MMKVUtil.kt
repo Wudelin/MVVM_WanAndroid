@@ -2,7 +2,6 @@ package com.wdl.wanandroid.utils
 
 import android.os.Parcelable
 import com.tencent.mmkv.MMKV
-import java.lang.IllegalArgumentException
 import java.util.*
 
 /**

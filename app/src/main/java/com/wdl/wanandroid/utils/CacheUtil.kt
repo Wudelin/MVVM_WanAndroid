@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import com.google.gson.Gson
+import com.wdl.wanandroid.base.USER_COOKIE
 import com.wdl.wanandroid.bean.UserInfo
 import java.io.File
 import java.math.BigDecimal
@@ -14,6 +15,10 @@ import java.math.BigDecimal
  * Create by: wdl at 2020/4/23 10:31
  */
 object CacheUtil {
+
+    fun saveCookie(cookie: String) = MMKVUtil.put(USER_COOKIE, cookie)
+
+    fun getCookie(): String = MMKVUtil.get(USER_COOKIE, "") as String
 
     /**
      * 获取用户信息

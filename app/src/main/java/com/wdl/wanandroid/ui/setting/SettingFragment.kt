@@ -15,6 +15,8 @@ import com.wdl.wanandroid.utils.getGlobalViewModel
 import com.wdl.wanandroid.utils.getVersion
 import com.wdl.wanandroid.viewmodel.GlobalViewModel
 import com.wdl.module_aac.preference.BasePreferenceFragment
+import com.wdl.wanandroid.base.USER_COOKIE
+import com.wdl.wanandroid.utils.MMKVUtil
 import com.wdl.wanandroid.viewmodel.MineViewModel
 import com.wdl.wanandroid.widget.TitleBar
 
@@ -72,6 +74,7 @@ class SettingFragment : BasePreferenceFragment(),
                 appViewModel.userInfo.postValue(null)
                 appViewModel.logout.postValue(true)
                 CacheUtil.saveUserInfo(null)
+                CacheUtil.saveCookie("")
                 view?.let {
                     Navigation.findNavController(it).navigateUp()
                 }

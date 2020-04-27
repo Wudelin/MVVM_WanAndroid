@@ -57,7 +57,7 @@ class LoginViewModel(private val repository: LoginRepository) : ViewModel() {
                 cookies.toString()
             }
 
-        MMKVUtil.put(USER_COOKIE, cookie)
+        CacheUtil.saveCookie(cookie)
     }
 
     private fun saveUserInfo(data: UserInfo) = CacheUtil.saveUserInfo(data)

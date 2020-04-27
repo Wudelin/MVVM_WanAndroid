@@ -1,6 +1,7 @@
 package com.wdl.wanandroid.remote.net.interceptor
 
 import com.wdl.wanandroid.base.USER_COOKIE
+import com.wdl.wanandroid.utils.CacheUtil
 import com.wdl.wanandroid.utils.MMKVUtil
 import okhttp3.Interceptor
 import okhttp3.Request
@@ -13,7 +14,7 @@ import okhttp3.Response
 class ReadCookiesInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val builder: Request.Builder = chain.request().newBuilder()
-        val cookies = MMKVUtil.get(USER_COOKIE, "") as String
+        val cookies = CacheUtil.getCookie()
         if (cookies.isNotEmpty()) {
             builder.addHeader("Cookie", cookies)
         }

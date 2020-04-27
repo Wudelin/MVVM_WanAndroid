@@ -64,7 +64,11 @@
     <fragment
         android:id="@+id/settingFragment"
         android:name="com.wdl.wanandroid.ui.setting.SettingFragment"
-        android:label="SettingFragment" />
+        android:label="SettingFragment" >
+        <action
+            android:id="@+id/action_settingFragment_to_webFragment"
+            app:destination="@id/webFragment" />
+    </fragment>
 
 
 </navigation>

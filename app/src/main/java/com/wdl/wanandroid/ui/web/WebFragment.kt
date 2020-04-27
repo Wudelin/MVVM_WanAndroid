@@ -5,12 +5,14 @@ import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import com.tencent.smtt.sdk.WebView
 import com.wdl.module_base.x5web.X5WebView
 import com.wdl.wanandroid.R
 import com.wdl.wanandroid.base.BaseFragment
 import com.wdl.wanandroid.base.WEB_URL
 import com.wdl.wanandroid.databinding.FragmentWebBinding
+import com.wdl.wanandroid.ui.camerax.GalleryFragmentArgs
 
 
 /**
@@ -18,12 +20,14 @@ import com.wdl.wanandroid.databinding.FragmentWebBinding
  */
 class WebFragment : BaseFragment<FragmentWebBinding>() {
 
+    private val args: WebFragmentArgs by navArgs()
+
     private val mWebView: X5WebView by lazy {
         X5WebView(requireContext(), null)
     }
 
     private val url: String? by lazy {
-        arguments?.getString(WEB_URL)
+        args.WEBURL
     }
 
     override fun initView(view: View, savedInstanceState: Bundle?) {

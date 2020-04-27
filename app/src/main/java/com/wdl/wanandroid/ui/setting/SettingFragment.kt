@@ -10,6 +10,7 @@ import androidx.preference.CheckBoxPreference
 import androidx.preference.Preference
 import com.wdl.module_aac.preference.BasePreferenceFragment
 import com.wdl.wanandroid.R
+import com.wdl.wanandroid.ui.web.WebFragment
 import com.wdl.wanandroid.utils.CacheUtil
 import com.wdl.wanandroid.utils.getGlobalViewModel
 import com.wdl.wanandroid.utils.getVersion
@@ -83,6 +84,17 @@ class SettingFragment : BasePreferenceFragment(),
             onPreferenceClickListener = Preference.OnPreferenceClickListener {
                 CacheUtil.clearAllCache(requireActivity())
                 summary = "0.00KB"
+                false
+            }
+        }
+
+        findPreference<Preference>("source")?.apply {
+            onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                view?.let {
+                    Navigation.findNavController(it).navigate(
+                        SettingFragmentDirections.actionSettingFragmentToWebFragment(summary.toString())
+                    )
+                }
                 false
             }
         }

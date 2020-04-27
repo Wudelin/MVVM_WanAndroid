@@ -20,6 +20,7 @@ import com.wdl.wanandroid.databinding.FragmentHomeBinding
 import com.wdl.wanandroid.db.bean.HomeArticleDetail
 import com.wdl.wanandroid.repository.HomeRepository
 import com.wdl.wanandroid.transformer.ScaleInTransformer
+import com.wdl.wanandroid.ui.MainFragmentDirections
 import com.wdl.wanandroid.utils.dp2px
 import com.wdl.wanandroid.utils.removeAllAnimation
 import com.wdl.wanandroid.viewmodel.HomeViewModel
@@ -82,10 +83,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 setOnBannerListener { data, _ ->
                     data as BannerData
                     Navigation.findNavController(view)
-                        .navigate(R.id.action_main_fragment_to_webFragment, Bundle().apply {
-                            putString(WEB_URL, data.url)
-                            //putString(WEB_URL, "https://call.crm.ink/")
-                        })
+                        .navigate(MainFragmentDirections.actionMainFragmentToWebFragment(data.url))
                 }
             }
         }
@@ -101,9 +99,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
             override fun onItemClick(view: View, position: Int, data: HomeArticleDetail) {
                 Navigation.findNavController(view)
-                    .navigate(R.id.action_main_fragment_to_webFragment, Bundle().apply {
-                        putString(WEB_URL, data.link)
-                    })
+                    .navigate(MainFragmentDirections.actionMainFragmentToWebFragment(data.link))
             }
         }
     }

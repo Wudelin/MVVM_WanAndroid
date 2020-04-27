@@ -13,6 +13,7 @@ import com.wdl.wanandroid.base.Results
 import com.wdl.wanandroid.bean.BannerData
 import com.wdl.wanandroid.db.bean.HomeArticleDetail
 import com.wdl.wanandroid.repository.HomeRepository
+import com.wdl.wanandroid.utils.CacheUtil
 import com.wdl.wanandroid.utils.WLogger
 import com.wdl.wanandroid.utils.parse
 import com.wdl.wanandroid.utils.safeLaunch
@@ -48,34 +49,28 @@ class HomeViewModel(private val repository: HomeRepository) : ViewModel() {
                     is Results.Success -> {
                         WLogger.e(Thread.currentThread().name)
                         mBannerData.value = result.data
-//                        TODO WorkManager 并行下载图片并保存（已完成）
-//                        val works = arrayListOf<OneTimeWorkRequest>()
-//
-//                        result.data.forEach {
-//                            works.add(
-//                                OneTimeWorkRequestBuilder<DownloadWorker>()
-//                                    .setInputData(
-//                                        workDataOf("url" to it.imagePath)
-//                                    )
-//                                    .build()
-//                            )
-//                        }
+                        // TODO WorkManager 并行下载图片并保存（已完成）
+                        // 多图并行下载
+                        if (CacheUtil.getAutoDownloadImg()) {
+                            val works = arrayListOf<OneTimeWorkRequest>()
+                            result.data.forEach {
+                                works.add(
+                                    OneTimeWorkRequestBuilder<DownloadWorker>()
+                                        .setInputData(
+                                            workDataOf("url" to it.imagePath)
+                                        )
+                                        .build()
+                                )
+                            }
+                            val saveWorkRequest = OneTimeWorkRequestBuilder<SaveWorker>()
+                                .setInputMerger(ArrayCreatingInputMerger::class)
+                                .build()
 
-//                        val downloadWorkRequest = OneTimeWorkRequestBuilder<DownloadWorker>()
-//                            .setInputData(
-//                                workDataOf("url" to result.data[0].imagePath)
-//                            )
-//                            .build()
-
-//                        val saveWorkRequest = OneTimeWorkRequestBuilder<SaveWorker>()
-//                            .setInputMerger(ArrayCreatingInputMerger::class)
-//                            .build()
-//
-//
-//                        WorkManager.getInstance(App.app)
-//                            .beginWith(works)
-//                            .then(saveWorkRequest)
-//                            .enqueue()
+                            WorkManager.getInstance(App.app)
+                                .beginWith(works)
+                                .then(saveWorkRequest)
+                                .enqueue()
+                        }
 
                     }
                     is Results.Failure -> {

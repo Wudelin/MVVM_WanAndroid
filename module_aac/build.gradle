@@ -69,4 +69,7 @@ dependencies {
     api "androidx.camera:camera-lifecycle:$camerax_version"
     // CameraX View class
     api 'androidx.camera:camera-view:1.0.0-alpha10'
+
+
+    api 'androidx.preference:preference:1.1.1'
 }

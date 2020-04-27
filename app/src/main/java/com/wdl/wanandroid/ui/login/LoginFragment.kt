@@ -66,6 +66,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         if (username.isEmpty() || password.isEmpty()) return
         loginViewModel.login(username, password, {
             appViewModel.userInfo.value = it
+            appViewModel.logout.value = false
             // 登录成功
             Navigation.findNavController(view)
                 .navigateUp()

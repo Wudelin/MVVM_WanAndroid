@@ -1,5 +1,7 @@
 package com.wdl.wanandroid.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.wdl.module_aac.livedata.UnPeekLiveData
 import com.wdl.wanandroid.bean.UserInfo
@@ -13,6 +15,8 @@ class GlobalViewModel : ViewModel() {
 
     val userInfo: UnPeekLiveData<UserInfo> =
         UnPeekLiveData()
+
+    val logout: MutableLiveData<Boolean> = MutableLiveData(false)
 
     init {
         userInfo.value = CacheUtil.getUserInfo()

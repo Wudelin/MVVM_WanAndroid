@@ -156,7 +156,8 @@ fun AlertDialog.showImmersive() {
     // Set the dialog to not focusable
     window?.setFlags(
         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE)
+        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+    )
 
     // Make sure that the dialog's window is in full screen
     window?.decorView?.systemUiVisibility = FLAGS_FULLSCREEN
@@ -176,3 +177,7 @@ const val FLAGS_FULLSCREEN =
             View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
             View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
             View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+
+
+fun Context.getVersion(): String =
+    packageManager.getPackageInfo(packageName, 0).versionName

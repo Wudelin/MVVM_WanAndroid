@@ -66,7 +66,7 @@ class MineFragment : BaseFragment<FragmentMineBinding>() {
             refreshListener = SwipeRefreshLayout.OnRefreshListener {
                 if (CacheUtil.isLogin()) {
                     mMineViewModel.getRankOrRefresh()
-                }else{
+                } else {
                     mMineViewModel.isRefresh.value = false
                 }
             }
@@ -124,6 +124,8 @@ class MineFragment : BaseFragment<FragmentMineBinding>() {
             R.id.ll_mine_about_author -> {
             }
             R.id.ll_mine_setting -> {
+                Navigation.findNavController(view)
+                    .navigate(R.id.action_main_fragment_to_settingFragment)
             }
             R.id.civ -> {
                 showPopupWindow()

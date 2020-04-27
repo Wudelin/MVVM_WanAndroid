@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <PreferenceCategory
+        android:key="base"
+        android:title="基本设置">
+        <CheckBoxPreference
+            android:key="download_img"
+            android:summary="开启后自动下载轮播图"
+            android:title="自动下载轮播图" />
+
+        <Preference
+            android:key="clear_cache"
+            android:title="清除缓存"
+            tools:summary="300KB" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="account"
+        android:title="用户设置">
+        <Preference
+            android:key="logout"
+            android:title="退出登录" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="about"
+        android:title="关于">
+        <Preference
+            android:key="version"
+            android:title="版本"
+            tools:summary="当前版本: 1.0" />
+
+        <Preference
+            android:key="source"
+            android:summary="https://github.com/Wudelin/MVVM_WanAndroid"
+            android:title="项目源码" />
+
+        <Preference
+            android:key="copyright"
+            android:summary="仅作为个人以及非商业用途"
+            android:title="版权声明" />
+
+    </PreferenceCategory>
+</PreferenceScreen>

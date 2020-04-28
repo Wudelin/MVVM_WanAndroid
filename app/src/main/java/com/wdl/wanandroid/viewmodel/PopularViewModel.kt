@@ -1,8 +1,6 @@
 package com.wdl.wanandroid.viewmodel
 
 import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wdl.wanandroid.base.Results
@@ -10,8 +8,6 @@ import com.wdl.wanandroid.db.bean.PopUrlBean
 import com.wdl.wanandroid.repository.PopularRepository
 import com.wdl.wanandroid.utils.parse
 import com.wdl.wanandroid.utils.safeLaunch
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 /**
  * Create by: wdl at 2020/4/28 15:09
@@ -28,6 +24,7 @@ class PopularViewModel(private val repository: PopularRepository) : ViewModel() 
      */
     fun getUrls() {
         // TODO Room查询返回LiveData时，为异步查询，返回的value为空，一种解决方法
+        // https://www.soinside.com/question/54ENg4kNPk7HjPNCdDBojb
 //        viewModelScope.safeLaunch {
 //            block = {
 //                val dataForDb = repository.fetchDataFromDb()

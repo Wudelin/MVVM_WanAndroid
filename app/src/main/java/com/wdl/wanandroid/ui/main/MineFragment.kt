@@ -1,6 +1,8 @@
 package com.wdl.wanandroid.ui.main
 
 import android.app.Activity.RESULT_OK
+import android.app.Dialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -9,10 +11,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupWindow
+import androidx.appcompat.app.AlertDialog
+import androidx.core.app.DialogCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.material.dialog.MaterialDialogs
+import com.wdl.module_aac.dialog.lifecycleOwner
 import com.wdl.wanandroid.R
 import com.wdl.wanandroid.base.BaseFragment
 import com.wdl.wanandroid.base.OPEN_ALBUM
@@ -125,6 +131,19 @@ class MineFragment : BaseFragment<FragmentMineBinding>() {
             R.id.ll_mine_public -> {
             }
             R.id.ll_mine_about_author -> {
+                AlertDialog.Builder(requireContext()).setTitle("关于作者")
+                    .setMessage(
+                        """
+                        QQ:1458883958
+                        Email:Wudelin_china@gmail.com
+                        Github:https://github.com/Wudelin/MVVM_WanAndroid
+                    """.trimIndent()
+                    )
+                    .setCancelable(true)
+                    .setPositiveButton(
+                        "我知道了"
+                    ) { _, _ ->
+                    }.create().lifecycleOwner(this).show()
             }
             R.id.ll_mine_setting -> {
                 Navigation.findNavController(view)

@@ -49,7 +49,7 @@ class HomeViewModel(private val repository: HomeRepository) : ViewModel() {
                     is Results.Success -> {
                         WLogger.e(Thread.currentThread().name)
                         mBannerData.value = result.data
-                        // TODO WorkManager 并行下载图片并保存（已完成）
+                        //  WorkManager 并行下载图片并保存（已完成）
                         // 多图并行下载
                         if (CacheUtil.getAutoDownloadImg()) {
                             val works = arrayListOf<OneTimeWorkRequest>()

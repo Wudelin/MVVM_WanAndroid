@@ -16,7 +16,11 @@ class PopularRepository(
     private val localDataSource: LocalDataSource = LocalDataSource(),
     private val remoteDataSource: RemoteDataSource = RemoteDataSource()
 ) {
-    suspend fun fetchDataFromDb(): LiveData<List<PopUrlBean>> = localDataSource.queryAll()
+    fun fetchDataFromDbRLiveData(): LiveData<List<PopUrlBean>> =
+        localDataSource.queryAllReturnLiveData()
+
+    suspend fun fetchDataFromDbRList(): List<PopUrlBean> = localDataSource.queryAllReturnList()
+
     suspend fun fetchDataFromRemote() = remoteDataSource.fetchData()
     suspend fun saveUrls(data: List<PopUrlBean>) = localDataSource.saveUrls(data)
 }
@@ -24,9 +28,9 @@ class PopularRepository(
 
 class LocalDataSource(private val db: AppDataBase = AppDataBase.instance) {
 
-    suspend fun queryAll() = withContext(Dispatchers.IO) {
-        db.getPopURLDao().queryAll()
-    }
+    fun queryAllReturnLiveData() = db.getPopURLDao().queryAllReturnLiveData()
+
+    suspend fun queryAllReturnList() = db.getPopURLDao().queryAllReturnList()
 
     suspend fun saveUrls(urls: List<PopUrlBean>) {
         if (urls.isNullOrEmpty()) return

@@ -64,7 +64,7 @@ class PopularURLFragment : BaseFragment<FragmentPopularURLBinding>() {
             }
         }
         mViewModel.mUrls.observe(this, Observer {
-            mAdapter.setList(it)
+            mAdapter.addData(it)
         })
 
         mViewModel.getUrls()

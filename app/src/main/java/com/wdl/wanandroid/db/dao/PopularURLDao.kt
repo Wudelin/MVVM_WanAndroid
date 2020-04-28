@@ -16,7 +16,7 @@ interface PopularURLDao {
      * 插入
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveArticles(urls: List<PopUrlBean>): List<Long>
+    fun saveArticles(urls: List<PopUrlBean>): List<Long>
 
     /**
      * 查询
@@ -24,5 +24,8 @@ interface PopularURLDao {
      * http://www.chinaoc.com.cn/p/1196282.html
      */
     @Query("select * from popular_url")
-    fun queryAll(): LiveData<List<PopUrlBean>>
+    fun queryAllReturnLiveData(): LiveData<List<PopUrlBean>>
+
+    @Query("select * from popular_url")
+    suspend fun queryAllReturnList(): List<PopUrlBean>
 }

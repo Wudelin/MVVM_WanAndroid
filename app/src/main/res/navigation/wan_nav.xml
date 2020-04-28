@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_main_fragment_to_settingFragment"
             app:destination="@id/settingFragment" />
+        <action
+            android:id="@+id/action_main_fragment_to_popularURLFragment"
+            app:destination="@id/popularURLFragment" />
     </fragment>
 
     <fragment
@@ -67,6 +70,14 @@
         android:label="SettingFragment" >
         <action
             android:id="@+id/action_settingFragment_to_webFragment"
+            app:destination="@id/webFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/popularURLFragment"
+        android:name="com.wdl.wanandroid.ui.popular.PopularURLFragment"
+        android:label="PopularURLFragment" >
+        <action
+            android:id="@+id/action_popularURLFragment_to_webFragment"
             app:destination="@id/webFragment" />
     </fragment>
 

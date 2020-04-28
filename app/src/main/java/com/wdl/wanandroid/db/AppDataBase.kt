@@ -7,17 +7,24 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.wdl.wanandroid.App
 import com.wdl.wanandroid.base.DB_NAME
 import com.wdl.wanandroid.db.bean.HomeArticleDetail
+import com.wdl.wanandroid.db.bean.PopUrlBean
 import com.wdl.wanandroid.db.dao.HomeArticleDao
+import com.wdl.wanandroid.db.dao.PopularURLDao
 import com.wdl.wanandroid.utils.WLogger
 
 /**
  * Create by: wdl at 2020/4/14 15:10
  * 数据库相关
  */
-@Database(entities = [HomeArticleDetail::class], version = 1, exportSchema = false)
+@Database(
+    entities = [HomeArticleDetail::class, PopUrlBean::class],
+    version = 1,
+    exportSchema = false
+)
 abstract class AppDataBase : RoomDatabase() {
 
     abstract fun getHomeArticleDao(): HomeArticleDao
+    abstract fun getPopURLDao(): PopularURLDao
 
     companion object {
         val instance: AppDataBase by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {

@@ -4,6 +4,7 @@ import com.wdl.wanandroid.base.PagerResponse
 import com.wdl.wanandroid.base.WanResponse
 import com.wdl.wanandroid.bean.BannerData
 import com.wdl.wanandroid.bean.MineInfo
+import com.wdl.wanandroid.db.bean.PopUrlBean
 import com.wdl.wanandroid.bean.UserInfo
 import com.wdl.wanandroid.db.bean.HomeArticleDetail
 import okhttp3.ResponseBody
@@ -76,6 +77,13 @@ interface WanApi {
      */
     @GET("/lg/coin/userinfo/json")
     suspend fun getRank(): WanResponse<MineInfo>
+
+
+    /**
+     * 获取热门网址
+     */
+    @GET("/friend/json")
+    suspend fun getPopularUrl(): WanResponse<List<PopUrlBean>>
 
 
 }

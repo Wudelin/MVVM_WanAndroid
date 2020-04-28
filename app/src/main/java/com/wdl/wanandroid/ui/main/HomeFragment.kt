@@ -63,7 +63,26 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             refreshListener = SwipeRefreshLayout.OnRefreshListener {
                 homeViewModel.refresh()
             }
-            adapter = mTabAdapter
+            adapter = mTabAdapter.apply {
+                setOnItemClickListener { _, view, position ->
+                    when (position) {
+                        0 -> {
+                            // 常用网址
+                            Navigation.findNavController(view)
+                                .navigate(R.id.action_main_fragment_to_popularURLFragment)
+                        }
+                        1 -> {
+                            // 导航
+                        }
+                        2 -> {
+                            // 分享文章
+                        }
+                        else -> {
+
+                        }
+                    }
+                }
+            }
             model = homeViewModel
 
             recyclerArticle.apply {

@@ -104,5 +104,4 @@ class HomeRemoteDataSource(private val api: WanApi = RetrofitManager.wanService)
     @WorkerThread
     suspend fun fetchTopArticleByPage() = api.top()
 
-
 }

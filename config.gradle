@@ -38,5 +38,6 @@ ext {
     autosizeVersion = '1.2.1'
     circleimageviewVersion = '3.1.0'
 
+    flexboxVersion = '2.0.1'
 
 }

@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-
+apply plugin: 'kotlin-kapt'
 android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -15,8 +15,17 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
-
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    // work-runtime-ktx 2.1.0 and above now requires Java 8
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
 
     buildTypes {
         release {
@@ -55,4 +64,6 @@ dependencies {
     api "com.tencent.tbs.tbssdk:sdk:$rootProject.ext.webVersion"
 
     api "de.hdodenhof:circleimageview:$rootProject.ext.circleimageviewVersion"
+
+    api "com.google.android:flexbox:$rootProject.ext.flexboxVersion"
 }

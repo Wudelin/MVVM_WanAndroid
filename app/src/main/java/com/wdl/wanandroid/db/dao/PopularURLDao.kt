@@ -1,5 +1,6 @@
 package com.wdl.wanandroid.db.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -19,7 +20,9 @@ interface PopularURLDao {
 
     /**
      * 查询
+     * 返回结果为LiveData时无需使用suspend关键字修饰，否则报错：
+     * http://www.chinaoc.com.cn/p/1196282.html
      */
     @Query("select * from popular_url")
-    suspend fun queryAll(): List<PopUrlBean>
+    fun queryAll(): LiveData<List<PopUrlBean>>
 }

@@ -27,7 +27,7 @@ class PopularViewModel(private val repository: PopularRepository) : ViewModel() 
             block = {
                 val dataForDb = repository.fetchDataFromDb()
                 // 数据null
-                if (dataForDb.isNullOrEmpty()) {
+                if (dataForDb.value.isNullOrEmpty()) {
                     when (val dataForRemote = repository.fetchDataFromRemote().parse()) {
                         is Results.Success -> {
                             mUrls.value = dataForRemote.data
@@ -38,7 +38,7 @@ class PopularViewModel(private val repository: PopularRepository) : ViewModel() 
                         }
                     }
                 } else {
-                    mUrls.value = dataForDb
+                    mUrls.value = dataForDb.value
                 }
             }
         }

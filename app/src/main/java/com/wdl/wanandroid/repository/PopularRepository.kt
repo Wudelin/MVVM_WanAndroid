@@ -1,5 +1,6 @@
 package com.wdl.wanandroid.repository
 
+import androidx.lifecycle.LiveData
 import androidx.room.withTransaction
 import com.wdl.wanandroid.db.AppDataBase
 import com.wdl.wanandroid.db.bean.PopUrlBean
@@ -15,7 +16,7 @@ class PopularRepository(
     private val localDataSource: LocalDataSource = LocalDataSource(),
     private val remoteDataSource: RemoteDataSource = RemoteDataSource()
 ) {
-    suspend fun fetchDataFromDb(): List<PopUrlBean> = localDataSource.queryAll()
+    suspend fun fetchDataFromDb(): LiveData<List<PopUrlBean>> = localDataSource.queryAll()
     suspend fun fetchDataFromRemote() = remoteDataSource.fetchData()
     suspend fun saveUrls(data: List<PopUrlBean>) = localDataSource.saveUrls(data)
 }

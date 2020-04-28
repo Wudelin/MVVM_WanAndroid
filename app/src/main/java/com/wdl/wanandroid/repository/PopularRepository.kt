@@ -1,5 +1,6 @@
 package com.wdl.wanandroid.repository
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.room.withTransaction
 import com.wdl.wanandroid.db.AppDataBase

@@ -20,6 +20,8 @@ import com.wdl.wanandroid.vmfactory.PopModelFactory
 /**
  * A simple [Fragment] subclass.
  * 常用网址
+ * Flex_box——layout:
+ * https://github.com/google/flexbox-layout
  */
 class PopularURLFragment : BaseFragment<FragmentPopularURLBinding>() {
 
